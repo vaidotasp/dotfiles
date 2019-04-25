@@ -1,0 +1,11 @@
+[alias]
+	pom = push origin master
+	sla = log --oneline --decorate --graph --all
+[user]
+	name = vaidotasp
+	email = vaidotasp@gmail.com
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
