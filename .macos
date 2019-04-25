@@ -1,6 +1,14 @@
+#!/usr/bin/env bash
+
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
 osascript -e 'tell application "System Preferences" to quit'
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing `sudo` time stamp until `.macos` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Create a central code directory
 echo "mkdir -p $(HOME)/code"
@@ -15,18 +23,18 @@ mkdir -p "$(HOME)/code"
 echo "installing node (via n-install)"
 curl -L https://git.io/n-install | bash
 
-# echo "installing apps with brew cask"
-brew cask install alfred google-chrome firefox brave-browser
+echo "installing apps with brew cask"
+brew install alfred google-chrome firefox tree git neovim
 visual-studio-code dash
 skype
 vlc handbrake
 
 # echo "Generating an RSA token for GitHub"
-mkdir -p ~/.ssh
-ssh-keygen -t rsa -b 4096 -C "vaidotasp@gmail.com"
-echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa" | tee ~/.ssh/config
-eval "$(ssh-agent -s)"
-echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
+#mkdir -p ~/.ssh
+#ssh-keygen -t rsa -b 4096 -C "vaidotasp@gmail.com"
+#echo "Host *\n AddKeysToAgent yes\n UseKeychain yes\n IdentityFile ~/.ssh/id_rsa" | tee ~/.ssh/config
+#eval "$(ssh-agent -s)"
+#echo "run 'pbcopy < ~/.ssh/id_rsa.pub' and paste that into GitHub"
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
