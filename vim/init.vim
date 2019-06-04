@@ -24,11 +24,17 @@ set termguicolors     " enable true colors support
 "colorscheme base16-default-dark
 set background=dark " for the dark version
 colorscheme taste
-" set background=light " for the light version
+"set background=light " for the light version
 
 "Airline Theme
 "let g:airline_theme='base16'
 let g:airline_theme='taste'
+
+" Use SPACE as <Leader>
+let mapleader="\<Space>"
+
+"Better movement to the front of the line
+nmap 0 ^
 
 "Buffer movement
 nmap ,l :bnext<CR>
@@ -46,6 +52,7 @@ let g:ale_sign_column_always = 1
 "FZF
 nnoremap <silent> <leader>f :FZF<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
+nnoremap <silent> <leader>fg :GFile<cr>
 
 " Show Line Numbers
 set number
@@ -69,33 +76,25 @@ let NERDTreeShowHidden=1
 nmap ,n :NERDTreeFind<CR>
 nmap ,m :NERDTreeToggle<CR>
 
-" Use , as <Leader>
-let mapleader=","
-
-" Enable yanking to the clipboard
-set clipboard=unnamed
-
-" Highlight search matches
-set hlsearch
-
 "Remove search match Highlighting
 nnoremap <esc> :noh<return><esc>
 
 " Syntax Highlighting ON
 syntax on
-
 set smartindent
 set clipboard=unnamed " use os clipboard
 set shiftwidth=2 " number of spaces when shift indenting
 set tabstop=2 " number of visual spaces per tab
 set softtabstop=2 " number of spaces in tab when editing
 set expandtab " tab to spaces
-"set cursorline  " highlight current line
 set showmatch " highlight matching [{()}]
 set incsearch " search as characters are entered
 set hlsearch " highlight matches
+set noruler
+set noshowmode
+set hidden
 
-" airline
+" Airline
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='dark'
 let g:airline#extensions#branch#enabled = 1 
@@ -108,9 +107,6 @@ let g:airline_section_x = ''
 
 "set laststatus=2 " for airline
 
-set noruler
-set noshowmode
-set hidden
 
 " Eliminating the delay for seamless insert/normal/visual switch
 set timeoutlen=1000 ttimeoutlen=0
