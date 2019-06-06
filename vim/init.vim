@@ -22,6 +22,7 @@ call plug#end()
 
 set ambiwidth=double
 set termguicolors     " enable true colors support
+set foldmethod=manual
 "colorscheme base16-default-dark
 set background=dark " for the dark version
 colorscheme taste
