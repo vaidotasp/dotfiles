@@ -18,6 +18,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'sheerun/vim-polyglot'
 Plug 'jordwalke/vim-taste'
 "Plug 'chriskempson/base16-vim'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 set ambiwidth=double
