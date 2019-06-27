@@ -63,6 +63,9 @@ set number
 " Indent using spaces instead of tabs
 set expandtab
 
+"Setting the update time to display gitgutter info quicker
+set updatetime=100
+
 " The number of spaces to use for each indent
 set shiftwidth=2
 
