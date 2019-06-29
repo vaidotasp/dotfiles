@@ -34,7 +34,9 @@ colorscheme taste
 let g:airline_theme='taste'
 
 " Use SPACE as <Leader>
-let mapleader="\<Space>"
+"let mapleader="\<Space>"
+nmap <space> <leader>
+
 
 "Better movement to the front of the line
 nmap 0 ^
