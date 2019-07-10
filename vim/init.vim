@@ -1,28 +1,32 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'scrooloose/nerdtree'
-"Completion stuff
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-
-" Plugin outside ~/.vim/plugged with post-update hook
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'w0rp/ale'
 Plug 'chemzqm/vim-jsx-improve'
-Plug 'altercation/vim-colors-solarized'
-"Plug 'joshdick/onedark.vim'
-Plug 'sheerun/vim-polyglot'
 Plug 'jordwalke/vim-taste'
-"Plug 'chriskempson/base16-vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  if (has("termguicolors"))
+    set termguicolors
+  endif
+endif
+  
 set ambiwidth=double
-set termguicolors     " enable true colors support
 set foldmethod=manual
 "colorscheme base16-default-dark
 "set background=dark " for the dark version
@@ -33,29 +37,27 @@ colorscheme taste
 "let g:airline_theme='base16'
 let g:airline_theme='taste'
 
-" Use SPACE as <Leader>
-let mapleader="\<Space>"
+" Leader Maps
+nmap <space> <leader>
+inoremap jk <esc>
+inoremap kj <esc>
+inoremap <leader> s :w<cr>
+nmap <leader>s :w<CR>
+nmap <leader>q :q<CR>
 
 "Better movement to the front of the line
 nmap 0 ^
 
-"Buffer movement
+"Buffer movement etc
+nmap <leader>w :bd<CR>
 nmap ,l :bnext<CR>
 nmap ,k :bprev<CR>
 
-"ALE Setup
-"Enable completion where available
-let g:ale_completion_enabled = 0
-
-"Sign Gutter Toggle -> Always on
-let g:ale_sign_column_always = 1
-
-"Get some opacity going on popupmenus
-"set pumblend=20
 "FZF
 nnoremap <silent> <leader>f :FZF<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
 nnoremap <silent> <leader>fg :GFile<cr>
+nnoremap <silent> <leader>ag :Ag<cr>
 
 " Show Line Numbers
 set number
@@ -65,9 +67,6 @@ set expandtab
 
 "Setting the update time to display gitgutter info quicker
 set updatetime=100
-
-" The number of spaces to use for each indent
-set shiftwidth=2
 
 " Open NERDTree by default
 autocmd StdinReadPre * let s:std_in=1
@@ -81,11 +80,33 @@ let NERDTreeShowHidden=1
 " Toggle file drawer in/out
 nmap ,n :NERDTreeFind<CR>
 nmap ,m :NERDTreeToggle<CR>
+"Some more NERDTree stuff
+let g:WebDevIconsOS = 'Darwin'
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
+let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
+let NERDTreeNodeDelimiter = "\u263a" " smiley face
+let NERDTreeShowHidden=1
+let NERDTreeDirArrowExpandable = '▷'
+let NERDTreeDirArrowCollapsible = '▼'
+let g:NERDTreeIndicatorMapCustom = {
+  \ "Modified"  : "✹",
+  \ "Staged"    : "✚",
+  \ "Untracked" : "✭",
+  \ "Renamed"   : "➜",
+  \ "Unmerged"  : "═",
+  \ "Deleted"   : "✖",
+  \ "Dirty"     : "✗",
+  \ "Clean"     : "✔︎",
+  \ 'Ignored'   : '☒',
+  \ "Unknown"   : "?"
+  \ }
 
 "Remove search match Highlighting
 nnoremap <esc> :noh<return><esc>
 
-" Syntax Highlighting ON
 syntax on
 set smartindent
 set clipboard=unnamed " use os clipboard
@@ -99,8 +120,18 @@ set hlsearch " highlight matches
 set noruler
 set noshowmode
 set hidden
+set ignorecase " case insensitive searching
+set smartcase " case-sensitive if expresson contains a capital letter
+set nolazyredraw " don't redraw while executing macros
+set wrap " turn on line wrapping
+set linebreak " set soft wrapping
+set autoindent " automatically set indent of new line
+set ttyfast " faster redrawing
+
+set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
 
 " Airline
+ let g:airline_powerline_fonts = 1
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='dark'
 let g:airline#extensions#branch#enabled = 1 
