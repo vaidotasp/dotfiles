@@ -41,11 +41,15 @@ let g:airline_theme='taste'
 nmap <space> <leader>
 inoremap jk <esc>
 inoremap kj <esc>
+inoremap <leader> s :w<cr>
+nmap <leader>s :w<CR>
+nmap <leader>q :q<CR>
 
 "Better movement to the front of the line
 nmap 0 ^
 
-"Buffer movement
+"Buffer movement etc
+nmap <leader>w :bd<CR>
 nmap ,l :bnext<CR>
 nmap ,k :bprev<CR>
 
