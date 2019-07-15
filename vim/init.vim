@@ -5,12 +5,15 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'jordwalke/vim-taste'
 Plug 'airblade/vim-gitgutter'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'elzr/vim-json'
+
 call plug#end()
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
