@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+,k	init.vim	/^nmap ,k :bprev<CR>$/;"	m
+,l	init.vim	/^nmap ,l :bnext<CR>$/;"	m
+,m	init.vim	/^nmap ,m :NERDTreeToggle<CR>$/;"	m
+,n	init.vim	/^nmap ,n :NERDTreeFind<CR>$/;"	m
+0	init.vim	/^nmap 0 ^$/;"	m
+<esc>	init.vim	/^nnoremap <esc> :noh<return><esc>$/;"	m
+<leader>F	init.vim	/^nnoremap <silent> <leader>F :FZF ~<cr>$/;"	m
+<leader>f	init.vim	/^nnoremap <silent> <leader>f :FZF<cr>$/;"	m
+<leader>fg	init.vim	/^nnoremap <silent> <leader>fg :GFile<cr>$/;"	m
+<s-tab>	init.vim	/^inoremap <s-tab> <c-n>$/;"	m
+<tab>	init.vim	/^inoremap <expr> <tab> InsertTabWrapper()$/;"	m
+InsertTabWrapper	init.vim	/^function! InsertTabWrapper()$/;"	f
+NERDTreeDirArrows	init.vim	/^let NERDTreeDirArrows = 1$/;"	v
+NERDTreeMinimalUI	init.vim	/^let NERDTreeMinimalUI = 1$/;"	v
+NERDTreeShowHidden	init.vim	/^let NERDTreeShowHidden=1$/;"	v
+g:airline#extensions#branch#enabled	init.vim	/^let g:airline#extensions#branch#enabled = 1 $/;"	v
+g:airline#extensions#tabline#enabled	init.vim	/^let g:airline#extensions#tabline#enabled = 1 $/;"	v
+g:airline_section_warning	init.vim	/^let g:airline_section_warning = '' $/;"	v
+g:airline_section_x	init.vim	/^let g:airline_section_x = '' $/;"	v
+g:airline_section_y	init.vim	/^let g:airline_section_y = '' $/;"	v
+g:airline_theme	init.vim	/^let g:airline_theme='taste'$/;"	v
+g:ale_completion_enabled	init.vim	/^let g:ale_completion_enabled = 0$/;"	v
+g:ale_sign_column_always	init.vim	/^let g:ale_sign_column_always = 1$/;"	v
+mapleader	init.vim	/^let mapleader="\\<Space>"$/;"	v
