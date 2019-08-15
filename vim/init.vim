@@ -41,6 +41,11 @@ colorscheme taste
 "let g:airline_theme='base16'
 let g:airline_theme='taste'
 
+"______coc specific stuff
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+vmap ,r  <Plug>(coc-format-selected)
+nmap ,r  <Plug>(coc-format-selected)
+
 " Leader Maps
 nmap <space> <leader>
 inoremap jk <esc>
