@@ -1,5 +1,6 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'Lokaltog/vim-monotone'
 Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -35,7 +36,8 @@ set foldmethod=manual
 "colorscheme base16-default-dark
 "set background=dark " for the dark version
 set background=light " for the light version
-colorscheme taste
+colorscheme monotone
+"colorscheme taste
 
 "Airline Theme
 "let g:airline_theme='base16'
