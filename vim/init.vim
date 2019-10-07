@@ -2,6 +2,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'pangloss/vim-javascript'
+Plug 'Lokaltog/vim-monotone'
 Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -35,9 +36,10 @@ endif
 set ambiwidth=double
 set foldmethod=manual
 "colorscheme base16-default-dark
-set background=dark " for the dark version
-"set background=light " for the light version
-colorscheme taste
+"set background=dark " for the dark version
+set background=light " for the light version
+colorscheme monotone
+"colorscheme taste
 
 "Airline Theme
 "let g:airline_theme='base16'
