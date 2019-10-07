@@ -1,5 +1,7 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'jiangmiao/auto-pairs'
+Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -33,8 +35,8 @@ endif
 set ambiwidth=double
 set foldmethod=manual
 "colorscheme base16-default-dark
-"set background=dark " for the dark version
-set background=light " for the light version
+set background=dark " for the dark version
+"set background=light " for the light version
 colorscheme taste
 
 "Airline Theme
@@ -70,6 +72,9 @@ nnoremap <silent> <leader>ag :Ag<cr>
 
 " Show Line Numbers
 set number
+
+"Syntax highlight for jsdoc
+let g:javascript_plugin_jsdoc = 1
 
 " Indent using spaces instead of tabs
 set expandtab
@@ -152,6 +157,12 @@ let g:airline_section_x = ''
 "let g:airline_right_sep = ' '
 
 "set laststatus=2 " for airline
+
+"Split navigation
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 
 " Eliminating the delay for seamless insert/normal/visual switch
