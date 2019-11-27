@@ -3,7 +3,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'jiangmiao/auto-pairs'
 Plug 'pangloss/vim-javascript'
 Plug 'Lokaltog/vim-monotone'
-Plug 'scrooloose/nerdtree'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
@@ -11,10 +10,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'chemzqm/vim-jsx-improve'
+"Plug 'chemzqm/vim-jsx-improve'
 Plug 'jordwalke/vim-taste'
 Plug 'airblade/vim-gitgutter'
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'elzr/vim-json'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
@@ -36,16 +34,17 @@ endif
 set ambiwidth=double
 set foldmethod=manual
 "colorscheme base16-default-dark
-"set background=dark " for the dark version
-set background=light " for the light version
-colorscheme monotone
-"colorscheme taste
+set background=dark " for the dark version
+"set background=light " for the light version
+"colorscheme monotone
+colorscheme taste
 
 "Airline Theme
 "let g:airline_theme='base16'
 let g:airline_theme='taste'
 
 "______coc specific stuff
+nmap ge :CocCommand explorer<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap ,r  <Plug>(coc-format-selected)
 nmap ,r  <Plug>(coc-format-selected)
@@ -85,40 +84,40 @@ set expandtab
 set updatetime=100
 
 " Open NERDTree by default
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " NERDTREE minimize details
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeShowHidden=1
+"let NERDTreeMinimalUI = 1
+"let NERDTreeDirArrows = 1
+" let NERDTreeShowHidden=1
 
 " Toggle file drawer in/out
-nmap ,n :NERDTreeFind<CR>
-nmap ,m :NERDTreeToggle<CR>
+" nmap ,n :NERDTreeFind<CR>
+" nmap ,m :NERDTreeToggle<CR>
 "Some more NERDTree stuff
-let g:WebDevIconsOS = 'Darwin'
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-let g:DevIconsEnableFolderExtensionPatternMatching = 1
-let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
-let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
-let NERDTreeNodeDelimiter = "\u263a" " smiley face
-let NERDTreeShowHidden=1
-let NERDTreeDirArrowExpandable = '▷'
-let NERDTreeDirArrowCollapsible = '▼'
-let g:NERDTreeIndicatorMapCustom = {
-  \ "Modified"  : "✹",
-  \ "Staged"    : "✚",
-  \ "Untracked" : "✭",
-  \ "Renamed"   : "➜",
-  \ "Unmerged"  : "═",
-  \ "Deleted"   : "✖",
-  \ "Dirty"     : "✗",
-  \ "Clean"     : "✔︎",
-  \ 'Ignored'   : '☒',
-  \ "Unknown"   : "?"
-  \ }
+" let g:WebDevIconsOS = 'Darwin'
+" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" let g:DevIconsEnableFoldersOpenClose = 1
+" let g:DevIconsEnableFolderExtensionPatternMatching = 1
+" let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
+" let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
+" let NERDTreeNodeDelimiter = "\u263a" " smiley face
+" let NERDTreeShowHidden=1
+" let NERDTreeDirArrowExpandable = '▷'
+" let NERDTreeDirArrowCollapsible = '▼'
+" let g:NERDTreeIndicatorMapCustom = {
+"   \ "Modified"  : "✹",
+"   \ "Staged"    : "✚",
+"   \ "Untracked" : "✭",
+"   \ "Renamed"   : "➜",
+"   \ "Unmerged"  : "═",
+"   \ "Deleted"   : "✖",
+"   \ "Dirty"     : "✗",
+"   \ "Clean"     : "✔︎",
+"   \ 'Ignored'   : '☒',
+"   \ "Unknown"   : "?"
+"   \ }
 
 "Remove search match Highlighting
 nnoremap <esc> :noh<return><esc>
