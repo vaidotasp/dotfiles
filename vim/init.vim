@@ -6,10 +6,12 @@ Plug 'Lokaltog/vim-monotone'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
 "Plug 'chemzqm/vim-jsx-improve'
 Plug 'jordwalke/vim-taste'
 Plug 'airblade/vim-gitgutter'
@@ -83,42 +85,6 @@ set expandtab
 "Setting the update time to display gitgutter info quicker
 set updatetime=100
 
-" Open NERDTree by default
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" NERDTREE minimize details
-"let NERDTreeMinimalUI = 1
-"let NERDTreeDirArrows = 1
-" let NERDTreeShowHidden=1
-
-" Toggle file drawer in/out
-" nmap ,n :NERDTreeFind<CR>
-" nmap ,m :NERDTreeToggle<CR>
-"Some more NERDTree stuff
-" let g:WebDevIconsOS = 'Darwin'
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-" let g:DevIconsEnableFoldersOpenClose = 1
-" let g:DevIconsEnableFolderExtensionPatternMatching = 1
-" let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
-" let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
-" let NERDTreeNodeDelimiter = "\u263a" " smiley face
-" let NERDTreeShowHidden=1
-" let NERDTreeDirArrowExpandable = '▷'
-" let NERDTreeDirArrowCollapsible = '▼'
-" let g:NERDTreeIndicatorMapCustom = {
-"   \ "Modified"  : "✹",
-"   \ "Staged"    : "✚",
-"   \ "Untracked" : "✭",
-"   \ "Renamed"   : "➜",
-"   \ "Unmerged"  : "═",
-"   \ "Deleted"   : "✖",
-"   \ "Dirty"     : "✗",
-"   \ "Clean"     : "✔︎",
-"   \ 'Ignored'   : '☒',
-"   \ "Unknown"   : "?"
-"   \ }
-
 "Remove search match Highlighting
 nnoremap <esc> :noh<return><esc>
 
@@ -142,6 +108,10 @@ set wrap " turn on line wrapping
 set linebreak " set soft wrapping
 set autoindent " automatically set indent of new line
 set ttyfast " faster redrawing
+set cmdheight=2 "display messages
+set shortmess+=c
+set signcolumn=yes
+
 
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
 
