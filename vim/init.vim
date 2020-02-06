@@ -111,8 +111,6 @@ set ttyfast " faster redrawing
 set cmdheight=2 "display messages
 set shortmess+=c
 set signcolumn=yes
-
-
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
 
 " Airline
