@@ -1,7 +1,9 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'jiangmiao/auto-pairs'
-Plug 'pangloss/vim-javascript'
+ Plug 'pangloss/vim-javascript'
+ Plug 'leafgarland/typescript-vim'
+ Plug 'peitalin/vim-jsx-typescript'
 Plug 'Lokaltog/vim-monotone'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
@@ -13,7 +15,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
 Plug 'airblade/vim-gitgutter'
-Plug 'elzr/vim-json'
+" Plug 'elzr/vim-json'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
@@ -48,6 +50,14 @@ nmap ge :CocCommand explorer<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap ,r  <Plug>(coc-format-selected)
 nmap ,r  <Plug>(coc-format-selected)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+"Do Hover!
+nmap <silent> gh :call CocAction('doHover')<CR>
 
 " Leader Maps
 nmap <space> <leader>
