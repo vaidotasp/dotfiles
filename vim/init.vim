@@ -1,10 +1,9 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'jiangmiao/auto-pairs'
- Plug 'pangloss/vim-javascript'
- Plug 'leafgarland/typescript-vim'
- Plug 'peitalin/vim-jsx-typescript'
-Plug 'Lokaltog/vim-monotone'
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
@@ -15,30 +14,14 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
 Plug 'airblade/vim-gitgutter'
-" Plug 'elzr/vim-json'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
-
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-"if (empty($TMUX))
-"  if (has("nvim"))
-"  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-"  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"  endif
-"  if (has("termguicolors"))
-"    set termguicolors
-"  endif
-"endif
-  
 set ambiwidth=double
 set foldmethod=manual
 "colorscheme base16-default-dark
 set background=dark " for the dark version
 "set background=light " for the light version
-"colorscheme monotone
 colorscheme taste
 
 "Airline Theme
@@ -134,7 +117,7 @@ set ttyfast " faster redrawing
 set cmdheight=2 "display messages
 set shortmess+=c
 set signcolumn=yes
-" set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
+set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
 
 " Airline
  let g:airline_powerline_fonts = 1
