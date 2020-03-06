@@ -14,6 +14,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
 Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-rooter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
@@ -58,11 +59,13 @@ nmap <leader>w :bd<CR>
 nmap ,l :bnext<CR>
 nmap ,k :bprev<CR>
 
-"FZF
-nnoremap <silent> <leader>f :FZF<cr>
+"FZF and AG
+nnoremap <silent> <leader>f :Files<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
 nnoremap <silent> <leader>fg :GFile<cr>
 nnoremap <silent> <leader>ag :Ag<cr>
+nnoremap <silent> <Leader>aw :Ag <C-R><C-W><CR>
+
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
