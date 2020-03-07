@@ -1,9 +1,14 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'jiangmiao/auto-pairs'
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
@@ -13,14 +18,17 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
-Plug 'airblade/vim-gitgutter'
 Plug 'airblade/vim-rooter'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"
+"TS Things
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.jsx' }
+"
+"
 call plug#end()
 
 set ambiwidth=double
 set foldmethod=manual
-"colorscheme base16-default-dark
 set background=dark " for the dark version
 "set background=light " for the light version
 colorscheme taste
@@ -34,6 +42,16 @@ nmap ge :CocCommand explorer<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap ,r  <Plug>(coc-format-selected)
 nmap ,r  <Plug>(coc-format-selected)
+
+"EXPERIMENTAL DOCUMENTATION STUFF
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -117,13 +135,13 @@ set wrap " turn on line wrapping
 set linebreak " set soft wrapping
 set autoindent " automatically set indent of new line
 set ttyfast " faster redrawing
-set cmdheight=2 "display messages
+set cmdheight=1 "display messages
 set shortmess+=c
 set signcolumn=yes
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
 
 " Airline
- let g:airline_powerline_fonts = 1
+"let g:airline_powerline_fonts = 1
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='dark'
 let g:airline#extensions#branch#enabled = 1 
