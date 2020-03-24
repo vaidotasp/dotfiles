@@ -18,7 +18,6 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
-Plug 'airblade/vim-rooter'
 "
 "TS Things
 Plug 'leafgarland/typescript-vim'
