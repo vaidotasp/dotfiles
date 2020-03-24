@@ -1,14 +1,14 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-css', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-highlight', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-html', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-pairs', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc-prettier'
+Plug 'neoclide/coc-eslint'
+Plug 'neoclide/coc-css'
+Plug 'neoclide/coc-highlight'
+Plug 'neoclide/coc-json'
+Plug 'neoclide/coc-tsserver'
+Plug 'neoclide/coc-html'
+Plug 'neoclide/coc-pairs'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
