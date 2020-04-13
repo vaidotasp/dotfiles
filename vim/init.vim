@@ -1,14 +1,6 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'neoclide/coc.nvim'
-Plug 'neoclide/coc-prettier'
-Plug 'neoclide/coc-eslint'
-Plug 'neoclide/coc-css'
-Plug 'neoclide/coc-highlight'
-Plug 'neoclide/coc-json'
-Plug 'neoclide/coc-tsserver'
-Plug 'neoclide/coc-html'
-Plug 'neoclide/coc-pairs'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
@@ -18,14 +10,18 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
+Plug 'mbbill/undotree'
+Plug 'christoomey/vim-tmux-navigator'
 "
 "TS Things
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.jsx' }
-"
+"JSX VIM
+Plug 'chemzqm/vim-jsx-improve'
 "
 call plug#end()
 
+set cursorline
 set ambiwidth=double
 set foldmethod=manual
 set background=dark " for the dark version
@@ -36,11 +32,17 @@ colorscheme taste
 "let g:airline_theme='base16'
 let g:airline_theme='taste'
 
+let g:tmux_navigator_disable_when_zoomed = 1
+
+
 "______coc specific stuff
 nmap ge :CocCommand explorer<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap ,r  <Plug>(coc-format-selected)
 nmap ,r  <Plug>(coc-format-selected)
+
+"Undo TREE
+nmap <leader>io :UndotreeToggle<cr>
 
 "EXPERIMENTAL DOCUMENTATION STUFF
 function! s:show_documentation()
@@ -68,13 +70,16 @@ inoremap <leader> s :w<cr>
 nmap <leader>s :w<CR>
 nmap <leader>q :q<CR>
 
+"Fugitive
+nmap <leader>gs :Gstatus<CR>
+
 "Better movement to the front of the line
 nmap 0 ^
 
 "Buffer movement etc
 nmap <leader>w :bd<CR>
-nmap ,l :bnext<CR>
-nmap ,k :bprev<CR>
+nmap <leader>l :bnext<CR>
+nmap <leader>k :bprev<CR>
 
 "FZF and AG
 nnoremap <silent> <leader>f :Files<cr>
@@ -129,7 +134,7 @@ set noshowmode
 set hidden
 set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
-set nolazyredraw " don't redraw while executing macros
+set lazyredraw " don't redraw while executing macros
 set wrap " turn on line wrapping
 set linebreak " set soft wrapping
 set autoindent " automatically set indent of new line
