@@ -12,6 +12,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'morhetz/gruvbox'
 "
 "TS Things
 Plug 'leafgarland/typescript-vim'
@@ -26,11 +27,13 @@ set ambiwidth=double
 set foldmethod=manual
 set background=dark " for the dark version
 "set background=light " for the light version
-colorscheme taste
+" colorscheme taste
+colorscheme gruvbox
 
 "Airline Theme
 "let g:airline_theme='base16'
-let g:airline_theme='taste'
+"let g:airline_theme='taste'
+let g:airline_theme='gruvbox'
 
 let g:tmux_navigator_disable_when_zoomed = 1
 
