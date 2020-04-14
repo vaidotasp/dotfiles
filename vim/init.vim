@@ -65,6 +65,15 @@ nmap <silent> gr <Plug>(coc-references)
 "Do Hover!
 nmap <silent> gh :call CocAction('doHover')<CR>
 
+"COC GIT mappings
+" navigate chunks of current buffer
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+" show chunk diff at current position
+nmap gs <Plug>(coc-git-chunkinfo)
+nmap gu :CocCommand git.chunkUndo<CR>
+
+
 " Leader Maps
 nmap <space> <leader>
 inoremap jk <esc>
