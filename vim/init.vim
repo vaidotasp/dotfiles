@@ -37,12 +37,18 @@ let g:airline_theme='gruvbox'
 
 let g:tmux_navigator_disable_when_zoomed = 1
 
+"Leader Change
+let mapleader = " "
 
 "______coc specific stuff
 nmap ge :CocCommand explorer<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-vmap ,r  <Plug>(coc-format-selected)
-nmap ,r  <Plug>(coc-format-selected)
+vmap <leader>,r  <Plug>(coc-format-selected)
+nmap <leader>,r <Plug>(coc-format-selected)
+" nmap <silent> <leader>a <Plug>(coc-diagnostic-next-error)
+" nmap <silent> <leader>a <Plug>(coc-diagnostic-next)
+nmap <silent> [c <Plug>(coc-diagnostic-prev-error)
+nmap <silent> ]c <Plug>(coc-diagnostic-next-error)
 
 "Undo TREE
 nmap <leader>io :UndotreeToggle<cr>
@@ -74,10 +80,6 @@ nmap gs <Plug>(coc-git-chunkinfo)
 nmap gu :CocCommand git.chunkUndo<CR>
 
 
-" Leader Maps
-nmap <space> <leader>
-inoremap jk <esc>
-inoremap kj <esc>
 inoremap <leader> s :w<cr>
 nmap <leader>s :w<CR>
 nmap <leader>q :q<CR>

@@ -19,12 +19,10 @@
   "diagnostic.checkCurrentLine": true,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": [
-    "css",
-    "typescript",
-    "typescriptreact"
+    "json"
   ],
   "prettier.requireConfig": true,
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": false,
   "html.format.enable": true,
   "tsserver.formatOnType": true,
   "coc.preferences.formatOnType": true
