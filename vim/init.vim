@@ -22,14 +22,14 @@ Plug 'chemzqm/vim-jsx-improve'
 "
 call plug#end()
 
-set cursorline
-set ambiwidth=double
-set foldmethod=manual
-set background=dark " for the dark version
-"set background=light " for the light version
-" colorscheme taste
-colorscheme gruvbox
 
+" THEMES/COLORS
+set background=dark " for the dark version
+" colorscheme taste
+"set background=light " for the light version
+let g:gruvbox_contrast_dark="light"
+let g:gruvbox_contrast_light="hard"
+colorscheme gruvbox
 "Airline Theme
 "let g:airline_theme='base16'
 "let g:airline_theme='taste'
@@ -79,8 +79,6 @@ nmap ]g <Plug>(coc-git-nextchunk)
 nmap gs <Plug>(coc-git-chunkinfo)
 nmap gu :CocCommand git.chunkUndo<CR>
 
-
-inoremap <leader> s :w<cr>
 nmap <leader>s :w<CR>
 nmap <leader>q :q<CR>
 
@@ -96,7 +94,7 @@ nmap <leader>l :bnext<CR>
 nmap <leader>k :bprev<CR>
 
 "FZF and AG
-nnoremap <silent> <leader>f :Files<cr>
+nnoremap <silent> <leader>ff :Files<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
 nnoremap <silent> <leader>fg :GFile<cr>
 nnoremap <silent> <leader>ag :Ag<cr>
@@ -124,11 +122,8 @@ set number
 "Syntax highlight for jsdoc
 let g:javascript_plugin_jsdoc = 1
 
-" Indent using spaces instead of tabs
-set expandtab
-
 "Setting the update time to display gitgutter info quicker
-set updatetime=100
+set updatetime=300
 
 "Remove search match Highlighting
 nnoremap <esc> :noh<return><esc>
@@ -139,6 +134,7 @@ set clipboard=unnamed " use os clipboard
 set shiftwidth=2 " number of spaces when shift indenting
 set tabstop=2 " number of visual spaces per tab
 set softtabstop=2 " number of spaces in tab when editing
+set shiftround " round indent to a multiple of 'shiftwidth'
 set expandtab " tab to spaces
 set showmatch " highlight matching [{()}]
 set incsearch " search as characters are entered
@@ -150,13 +146,33 @@ set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set lazyredraw " don't redraw while executing macros
 set wrap " turn on line wrapping
+set wrapmargin=8
 set linebreak " set soft wrapping
+set showbreak=… " show ellipsis at breaking
 set autoindent " automatically set indent of new line
 set ttyfast " faster redrawing
 set cmdheight=1 "display messages
 set shortmess+=c
+set wildmenu " enhanced command line completion
 set signcolumn=yes
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
+set shortmess+=c
+
+set termguicolors
+set cursorline
+set ambiwidth=double
+set foldmethod=manual
+" set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
+set inccommand=nosplit
+set nolazyredraw " don't redraw while executing macros
+
+" code folding settings
+set foldmethod=syntax " fold based on indent
+set foldlevelstart=99
+set foldnestmax=10 " deepest fold is 10 levels
+set nofoldenable " don't fold by default
+set foldlevel=1
+set laststatus=2 " show the status line all the time
+
 
 " Airline
 "let g:airline_powerline_fonts = 1

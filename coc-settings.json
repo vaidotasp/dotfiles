@@ -9,21 +9,33 @@
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "suggest.enablePreview": true,
   "suggest.enablePreselect": true,
-  "diagnostic.errorSign": "!!",
-  "diagnostic.warningSign": "!!",
-  "diagnostic.infoSign": "!!",
-  "diagnostic.hintSign": "!!",
-  "diagnostic.signOffset": 999999,
+  "suggest.maxPreviewWidth": 100,
   "diagnostic.maxWindowHeight": 20,
-  "signature.maxWindowHeight": 20,
   "diagnostic.checkCurrentLine": true,
+  "explorer.icon.enableNerdfont": true,
+  "explorer.sources": [
+    {"name": "buffer", "expand": true},
+    {"name": "file", "expand": true}
+  ],
+  "explorer.file.column.git.icon.added": "✚",
+  "explorer.file.column.git.icon.deleted": "✖",
+  "explorer.file.column.git.icon.renamed": "➜",
+  "explorer.file.column.git.icon.unmerged": "═",
+  "explorer.file.column.git.icon.untracked": "?",
+  "explorer.file.column.git.icon.modified": "✹",
+  "explorer.file.column.git.icon.ignored": "☒",
+  "explorer.openAction.for.directory": "expandOrCollapse",
+  "explorer.previewAction.onHover": false,
+
+  "signature.maxWindowHeight": 20,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": [
     "json"
   ],
   "prettier.requireConfig": true,
   "eslint.autoFixOnSave": false,
+  "eslint.enable": true,
   "html.format.enable": true,
-  "tsserver.formatOnType": true,
-  "coc.preferences.formatOnType": true
+  "tsserver.formatOnType": false,
+  "coc.preferences.formatOnType": false
 }
