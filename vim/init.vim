@@ -13,6 +13,7 @@ Plug 'jordwalke/vim-taste'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
+Plug 'hzchirs/vim-material'
 "
 "TS Things
 Plug 'leafgarland/typescript-vim'
@@ -22,14 +23,17 @@ Plug 'chemzqm/vim-jsx-improve'
 "
 call plug#end()
 
+" Dark
 
 " THEMES/COLORS
-set background=dark " for the dark version
-" colorscheme taste
-"set background=light " for the light version
-let g:gruvbox_contrast_dark="light"
-let g:gruvbox_contrast_light="hard"
 colorscheme gruvbox
+set background=dark " for the dark version
+"set background=light " for the light version
+let g:gruvbox_contrast_dark="medium"
+"let g:gruvbox_contrast_light="hard"
+let g:gruvbox_bold=1
+" colorscheme gruvbox
+" colorscheme vim-material
 "Airline Theme
 "let g:airline_theme='base16'
 "let g:airline_theme='taste'
@@ -61,7 +65,7 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> I :call <SID>show_documentation()<CR>
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -70,6 +74,11 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 "Do Hover!
 nmap <silent> gh :call CocAction('doHover')<CR>
+
+
+"Move highlighted chunks around line in other editors
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 "COC GIT mappings
 " navigate chunks of current buffer
@@ -157,6 +166,10 @@ set wildmenu " enhanced command line completion
 set signcolumn=yes
 set shortmess+=c
 
+set undodir=~/.vim/undodir
+set undofile
+"set number relativenumber
+"set nu rnu
 set termguicolors
 set cursorline
 set ambiwidth=double
