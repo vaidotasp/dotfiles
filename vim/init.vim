@@ -23,14 +23,13 @@ Plug 'chemzqm/vim-jsx-improve'
 "
 call plug#end()
 
-" Dark
 
 " THEMES/COLORS
 colorscheme gruvbox
 set background=dark " for the dark version
-"set background=light " for the light version
+" set background=light " for the light version
 let g:gruvbox_contrast_dark="medium"
-"let g:gruvbox_contrast_light="hard"
+let g:gruvbox_contrast_light="hard"
 let g:gruvbox_bold=1
 " colorscheme gruvbox
 " colorscheme vim-material
@@ -136,6 +135,10 @@ set updatetime=300
 
 "Remove search match Highlighting
 nnoremap <esc> :noh<return><esc>
+
+"Indent based on file type
+autocmd Filetype go setlocal shiftwidth=4 softtabstop=4
+
 
 syntax on
 set smartindent
