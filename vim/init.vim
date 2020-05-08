@@ -13,7 +13,9 @@ Plug 'jordwalke/vim-taste'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
-Plug 'hzchirs/vim-material'
+Plug 'ayu-theme/ayu-vim'
+Plug 'preservim/nerdtree'
+
 "
 "TS Things
 Plug 'leafgarland/typescript-vim'
@@ -23,6 +25,7 @@ Plug 'chemzqm/vim-jsx-improve'
 "
 call plug#end()
 
+let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
 
 " THEMES/COLORS
 colorscheme gruvbox
@@ -31,11 +34,7 @@ set background=dark " for the dark version
 let g:gruvbox_contrast_dark="medium"
 let g:gruvbox_contrast_light="hard"
 let g:gruvbox_bold=1
-" colorscheme gruvbox
-" colorscheme vim-material
 "Airline Theme
-"let g:airline_theme='base16'
-"let g:airline_theme='taste'
 let g:airline_theme='gruvbox'
 
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -44,7 +43,6 @@ let g:tmux_navigator_disable_when_zoomed = 1
 let mapleader = " "
 
 "______coc specific stuff
-nmap ge :CocCommand explorer<CR>
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 vmap <leader>,r  <Plug>(coc-format-selected)
 nmap <leader>,r <Plug>(coc-format-selected)
@@ -87,8 +85,11 @@ nmap ]g <Plug>(coc-git-nextchunk)
 nmap gs <Plug>(coc-git-chunkinfo)
 nmap gu :CocCommand git.chunkUndo<CR>
 
+"Reboot coc for when it inevitably goes bad
+nmap cr :CocRestart <CR>
+nmap clean :call coc#util#float_hide() <CR>
 nmap <leader>s :w<CR>
-nmap <leader>q :q<CR>
+"nmap <leader>q :q<CR>
 
 "Fugitive
 nmap <leader>gs :Gstatus<CR>
@@ -96,18 +97,27 @@ nmap <leader>gs :Gstatus<CR>
 "Better movement to the front of the line
 nmap 0 ^
 
+"Do not move the cursor when using *
+" nnoremap * *<c-o>
+
 "Buffer movement etc
 nmap <leader>w :bd<CR>
-nmap <leader>l :bnext<CR>
-nmap <leader>k :bprev<CR>
+"nmap <leader>l :bnext<CR>
+"nmap <leader>k :bprev<CR>
 
 "FZF and AG
 nnoremap <silent> <leader>ff :Files<cr>
 nnoremap <silent> <leader>F :FZF ~<cr>
+nnoremap <silent> <leader>q :Buffers<cr>
 nnoremap <silent> <leader>fg :GFile<cr>
 nnoremap <silent> <leader>ag :Ag<cr>
 nnoremap <silent> <Leader>aw :Ag <C-R><C-W><CR>
 
+"Trying some nerdtree
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"map <C-n> :NERDTreeToggle<CR>
+nmap ge :NERDTreeToggle<CR>
+nmap gf :NERDTreeFind<CR>
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
