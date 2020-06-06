@@ -15,7 +15,10 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'preservim/nerdtree'
-
+Plug 'cocopon/iceberg.vim'
+Plug 'rakr/vim-one'
+Plug 'evanleck/vim-svelte'
+Plug 'machakann/vim-highlightedyank'
 "
 "TS Things
 Plug 'leafgarland/typescript-vim'
@@ -27,12 +30,16 @@ call plug#end()
 
 let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
 
+let g:highlightedyank_highlight_duration = 150
+
 " THEMES/COLORS
 colorscheme gruvbox
+"colorscheme taste
+"colorscheme iceberg
 set background=dark " for the dark version
 " set background=light " for the light version
-let g:gruvbox_contrast_dark="medium"
-let g:gruvbox_contrast_light="hard"
+"let g:gruvbox_contrast_dark="light"
+let g:gruvbox_contrast_light="light"
 let g:gruvbox_bold=1
 "Airline Theme
 let g:airline_theme='gruvbox'
@@ -40,7 +47,9 @@ let g:airline_theme='gruvbox'
 let g:tmux_navigator_disable_when_zoomed = 1
 
 "Leader Change
-let mapleader = " "
+let mapleader = "\<Space>" 
+
+"let mapleader = " "
 
 "______coc specific stuff
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -167,10 +176,10 @@ set hidden
 set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set lazyredraw " don't redraw while executing macros
-set wrap " turn on line wrapping
-set wrapmargin=8
-set linebreak " set soft wrapping
-set showbreak=… " show ellipsis at breaking
+set nowrap " no wrap
+" set wrapmargin=8
+"set linebreak " set soft wrapping
+"set showbreak=… " show ellipsis at breaking
 set autoindent " automatically set indent of new line
 set ttyfast " faster redrawing
 set cmdheight=1 "display messages
@@ -181,8 +190,8 @@ set shortmess+=c
 
 set undodir=~/.vim/undodir
 set undofile
-"set number relativenumber
-"set nu rnu
+" set number relativenumber
+" set nu rnu
 set termguicolors
 set cursorline
 set ambiwidth=double
