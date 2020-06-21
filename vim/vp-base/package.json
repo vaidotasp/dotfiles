@@ -1,0 +1,21 @@
+{
+    "name": "vp-base",
+    "displayName": "vp-base",
+    "description": "mono",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.46.0"
+    },
+    "categories": [
+        "Themes"
+    ],
+    "contributes": {
+        "themes": [
+            {
+                "label": "baseline",
+                "uiTheme": "vs-dark",
+                "path": "./themes/baseline-color-theme.json"
+            }
+        ]
+    }
+}

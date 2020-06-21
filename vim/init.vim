@@ -7,6 +7,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-sleuth'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'jordwalke/vim-taste'
@@ -19,13 +20,12 @@ Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
 Plug 'evanleck/vim-svelte'
 Plug 'machakann/vim-highlightedyank'
-"
+
 "TS Things
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.jsx' }
 "JSX VIM
 Plug 'chemzqm/vim-jsx-improve'
-"
 call plug#end()
 
 let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
@@ -34,13 +34,12 @@ let g:highlightedyank_highlight_duration = 150
 
 " THEMES/COLORS
 colorscheme gruvbox
-"colorscheme taste
-"colorscheme iceberg
 set background=dark " for the dark version
-" set background=light " for the light version
-"let g:gruvbox_contrast_dark="light"
-let g:gruvbox_contrast_light="light"
-let g:gruvbox_bold=1
+"set background=light " for the light version
+let g:gruvbox_contrast_dark="medium"
+let g:gruvbox_invert_selection = 0
+let g:gruvbox_bold = 1
+
 "Airline Theme
 let g:airline_theme='gruvbox'
 
@@ -49,7 +48,8 @@ let g:tmux_navigator_disable_when_zoomed = 1
 "Leader Change
 let mapleader = "\<Space>" 
 
-"let mapleader = " "
+"Format JSON
+nmap <leader>jq :%!jq '.'<CR>
 
 "______coc specific stuff
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
@@ -86,6 +86,10 @@ nmap <silent> gh :call CocAction('doHover')<CR>
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
+"VIM FUGITIVE
+nmap <leader>gp :diffget //3<CR>
+nmap <leader>gq :diffget //2<CR>
+
 "COC GIT mappings
 " navigate chunks of current buffer
 nmap [g <Plug>(coc-git-prevchunk)
@@ -108,6 +112,9 @@ nmap 0 ^
 
 "Do not move the cursor when using *
 " nnoremap * *<c-o>
+
+"Search Replace stuff
+nnoremap <Leader>r :%s///gc<Left><Left><Left>
 
 "Buffer movement etc
 nmap <leader>w :bd<CR>
@@ -158,7 +165,6 @@ nnoremap <esc> :noh<return><esc>
 "Indent based on file type
 autocmd Filetype go setlocal shiftwidth=4 softtabstop=4
 
-
 syntax on
 set smartindent
 set clipboard=unnamed " use os clipboard
@@ -177,9 +183,6 @@ set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set lazyredraw " don't redraw while executing macros
 set nowrap " no wrap
-" set wrapmargin=8
-"set linebreak " set soft wrapping
-"set showbreak=… " show ellipsis at breaking
 set autoindent " automatically set indent of new line
 set ttyfast " faster redrawing
 set cmdheight=1 "display messages
@@ -190,13 +193,10 @@ set shortmess+=c
 
 set undodir=~/.vim/undodir
 set undofile
-" set number relativenumber
-" set nu rnu
 set termguicolors
 set cursorline
 set ambiwidth=double
 set foldmethod=manual
-" set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
 set inccommand=nosplit
 set nolazyredraw " don't redraw while executing macros
 
@@ -241,13 +241,13 @@ set rtp+=/usr/local/opt/fzf
 " MULTIPURPOSE TAB KEY
 " Indent if we're at the beginning of a line. Else, do completion.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <expr> <tab> InsertTabWrapper()
-inoremap <s-tab> <c-n>
+" function! InsertTabWrapper()
+"     let col = col('.') - 1
+"     if !col || getline('.')[col - 1] !~ '\k'
+"         return "\<tab>"
+"     else
+"         return "\<c-p>"
+"     endif
+" endfunction
+" inoremap <expr> <tab> InsertTabWrapper()
+" inoremap <s-tab> <c-n>

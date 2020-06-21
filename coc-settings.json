@@ -8,29 +8,23 @@
   "suggest.noselect": false,
   "suggest.acceptSuggestionOnCommitCharacter": true,
   "suggest.enablePreview": true,
+  "tailwindCSS.emmetCompletions": true,
   "suggest.enablePreselect": true,
   "suggest.maxPreviewWidth": 100,
   "diagnostic.maxWindowHeight": 20,
   "diagnostic.checkCurrentLine": true,
+  "git.enableGlobalStatus": false,
   "explorer.icon.enableNerdfont": true,
   "explorer.sources": [
     {"name": "buffer", "expand": true},
     {"name": "file", "expand": true}
   ],
-  "explorer.file.column.git.icon.added": "✚",
-  "explorer.file.column.git.icon.deleted": "✖",
-  "explorer.file.column.git.icon.renamed": "➜",
-  "explorer.file.column.git.icon.unmerged": "═",
-  "explorer.file.column.git.icon.untracked": "?",
-  "explorer.file.column.git.icon.modified": "✹",
-  "explorer.file.column.git.icon.ignored": "☒",
   "explorer.openAction.for.directory": "expandOrCollapse",
   "explorer.previewAction.onHover": false,
 
   "signature.maxWindowHeight": 20,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.formatOnSaveFiletypes": [
-    "json"
   ],
   "prettier.requireConfig": true,
   "eslint.autoFixOnSave": false,

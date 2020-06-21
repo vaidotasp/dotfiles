@@ -1,4 +1,7 @@
 [aws]
+displayed_items = "all"
+style = "bold blue"
+symbol = "🅰 "
 disabled = true
 [package]
 disabled = true
