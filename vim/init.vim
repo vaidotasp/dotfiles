@@ -23,9 +23,8 @@ Plug 'machakann/vim-highlightedyank'
 
 "TS Things
 Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript', { 'for': 'typescript.jsx' }
 "JSX VIM
-Plug 'chemzqm/vim-jsx-improve'
+Plug 'MaxMEllon/vim-jsx-pretty'
 call plug#end()
 
 let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
@@ -38,7 +37,7 @@ set background=dark " for the dark version
 "set background=light " for the light version
 let g:gruvbox_contrast_dark="medium"
 let g:gruvbox_invert_selection = 0
-let g:gruvbox_bold = 1
+let g:gruvbox_bold = 0
 
 "Airline Theme
 let g:airline_theme='gruvbox'
@@ -53,6 +52,7 @@ nmap <leader>jq :%!jq '.'<CR>
 
 "______coc specific stuff
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nmap <leader>p :CocCommand prettier.formatFile<CR>
 vmap <leader>,r  <Plug>(coc-format-selected)
 nmap <leader>,r <Plug>(coc-format-selected)
 " nmap <silent> <leader>a <Plug>(coc-diagnostic-next-error)
@@ -128,6 +128,7 @@ nnoremap <silent> <leader>q :Buffers<cr>
 nnoremap <silent> <leader>fg :GFile<cr>
 nnoremap <silent> <leader>ag :Ag<cr>
 nnoremap <silent> <Leader>aw :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>prw :CocSearch <C-R><C-W><CR>
 
 "Trying some nerdtree
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -196,7 +197,6 @@ set undofile
 set termguicolors
 set cursorline
 set ambiwidth=double
-set foldmethod=manual
 set inccommand=nosplit
 set nolazyredraw " don't redraw while executing macros
 
