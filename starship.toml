@@ -1,8 +1,8 @@
 [aws]
-displayed_items = "all"
+displayed_items = "profile"
 style = "bold blue"
 symbol = "🅰 "
-disabled = true
+disabled = false
 [package]
 disabled = true
 

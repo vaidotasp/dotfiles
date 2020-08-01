@@ -20,9 +20,12 @@ Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
 Plug 'evanleck/vim-svelte'
 Plug 'machakann/vim-highlightedyank'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 "TS Things
 Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+
 "JSX VIM
 Plug 'MaxMEllon/vim-jsx-pretty'
 call plug#end()
@@ -31,16 +34,25 @@ let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
 
 let g:highlightedyank_highlight_duration = 150
 
-" THEMES/COLORS
-colorscheme gruvbox
 set background=dark " for the dark version
-"set background=light " for the light version
-let g:gruvbox_contrast_dark="medium"
+let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_bold = 0
+" THEMES/COLORS
+colorscheme gruvbox
+" colorscheme one
+"set background=light " for the light version
+
+"MONO
+"let g:monotone_emphasize_comments = 0 " Emphasize comments
+"let g:monotone_color = [0, 0, 22]
+"let g:monotone_contrast_factor = 1.1
+"colorscheme monotone
 
 "Airline Theme
 let g:airline_theme='gruvbox'
+"let g:airline_theme='one'
+
 
 let g:tmux_navigator_disable_when_zoomed = 1
 
