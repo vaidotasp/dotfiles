@@ -20,7 +20,9 @@ Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
 Plug 'evanleck/vim-svelte'
 Plug 'machakann/vim-highlightedyank'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'chriskempson/base16-vim'
+
+"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 "TS Things
 Plug 'leafgarland/typescript-vim'
@@ -39,7 +41,9 @@ let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_bold = 0
 " THEMES/COLORS
-colorscheme gruvbox
+"colorscheme gruvbox
+" colorscheme base16-default-dark
+colorscheme base16-gruvbox-dark-hard
 " colorscheme one
 "set background=light " for the light version
 
@@ -50,7 +54,9 @@ colorscheme gruvbox
 "colorscheme monotone
 
 "Airline Theme
-let g:airline_theme='gruvbox'
+"let g:airline_theme='gruvbox'
+" let g:airline_theme='base16-default'
+" let g:airline_theme='base16-gruvbox-dark'
 "let g:airline_theme='one'
 
 
@@ -176,6 +182,12 @@ set updatetime=300
 nnoremap <esc> :noh<return><esc>
 
 "Indent based on file type
+"GO DEV SETUP
+"Disable stuff we do not need from vim-go as coc-go handles it well enough
+let g:go_def_mapping_enabled = 0
+let g:go_highlight_diagnostic_warnings = 0
+let g:go_highlight_diagnostic_errors = 0
+
 autocmd Filetype go setlocal shiftwidth=4 softtabstop=4
 
 syntax on

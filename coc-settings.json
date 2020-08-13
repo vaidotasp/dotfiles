@@ -21,15 +21,13 @@
   ],
   "explorer.openAction.for.directory": "expandOrCollapse",
   "explorer.previewAction.onHover": false,
-
   "signature.maxWindowHeight": 20,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.preferences.formatOnSaveFiletypes": [
-  ],
   "prettier.requireConfig": true,
   "eslint.autoFixOnSave": false,
   "eslint.enable": true,
   "html.format.enable": true,
   "tsserver.formatOnType": false,
-  "coc.preferences.formatOnType": false
+  "coc.preferences.formatOnType": false,
+  "coc.preferences.formatOnSaveFiletypes": ["go"]
 }
