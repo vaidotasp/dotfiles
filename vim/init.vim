@@ -14,15 +14,15 @@ Plug 'jordwalke/vim-taste'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
-Plug 'ayu-theme/ayu-vim'
 Plug 'preservim/nerdtree'
-Plug 'cocopon/iceberg.vim'
 Plug 'rakr/vim-one'
 Plug 'evanleck/vim-svelte'
 Plug 'machakann/vim-highlightedyank'
-Plug 'chriskempson/base16-vim'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'christoomey/vim-system-copy'
 
-"Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 "TS Things
 Plug 'leafgarland/typescript-vim'
@@ -30,35 +30,44 @@ Plug 'peitalin/vim-jsx-typescript'
 
 "JSX VIM
 Plug 'MaxMEllon/vim-jsx-pretty'
+
+"LSP???!!
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+
 call plug#end()
+
+"Further LSP setup
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" lua <<EOF
+" require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
+" EOF
+
 
 let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
 
 let g:highlightedyank_highlight_duration = 150
 
 set background=dark " for the dark version
+"set background=light " for the dark version
 let g:gruvbox_contrast_dark="hard"
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_bold = 0
 " THEMES/COLORS
-"colorscheme gruvbox
+colorscheme gruvbox
+"colorscheme lucius
+" let g:lucius_contrast="medium"
 " colorscheme base16-default-dark
-colorscheme base16-gruvbox-dark-hard
+"colorscheme base16-gruvbox-dark-hard
 " colorscheme one
 "set background=light " for the light version
 
-"MONO
-"let g:monotone_emphasize_comments = 0 " Emphasize comments
-"let g:monotone_color = [0, 0, 22]
-"let g:monotone_contrast_factor = 1.1
-"colorscheme monotone
-
 "Airline Theme
-"let g:airline_theme='gruvbox'
+let g:airline_theme='gruvbox'
+"let g:airline_theme='lucius'
 " let g:airline_theme='base16-default'
 " let g:airline_theme='base16-gruvbox-dark'
 "let g:airline_theme='one'
-
 
 let g:tmux_navigator_disable_when_zoomed = 1
 
@@ -73,10 +82,10 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>p :CocCommand prettier.formatFile<CR>
 vmap <leader>,r  <Plug>(coc-format-selected)
 nmap <leader>,r <Plug>(coc-format-selected)
-" nmap <silent> <leader>a <Plug>(coc-diagnostic-next-error)
-" nmap <silent> <leader>a <Plug>(coc-diagnostic-next)
 nmap <silent> [c <Plug>(coc-diagnostic-prev-error)
 nmap <silent> ]c <Plug>(coc-diagnostic-next-error)
+" nmap <silent> <leader>a <Plug>(coc-diagnostic-next-error)
+" nmap <silent> <leader>a <Plug>(coc-diagnostic-next)
 
 "Undo TREE
 nmap <leader>io :UndotreeToggle<cr>
@@ -89,6 +98,8 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" If doc exist, show in I - man pages typically
 nnoremap <silent> I :call <SID>show_documentation()<CR>
 
 " Remap keys for gotos
@@ -128,16 +139,11 @@ nmap <leader>gs :Gstatus<CR>
 "Better movement to the front of the line
 nmap 0 ^
 
-"Do not move the cursor when using *
-" nnoremap * *<c-o>
-
 "Search Replace stuff
 nnoremap <Leader>r :%s///gc<Left><Left><Left>
 
 "Buffer movement etc
 nmap <leader>w :bd<CR>
-"nmap <leader>l :bnext<CR>
-"nmap <leader>k :bprev<CR>
 
 "FZF and AG
 nnoremap <silent> <leader>ff :Files<cr>
@@ -150,7 +156,8 @@ nnoremap <silent> <Leader>prw :CocSearch <C-R><C-W><CR>
 
 "Trying some nerdtree
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"map <C-n> :NERDTreeToggle<CR>
+
+"
 nmap ge :NERDTreeToggle<CR>
 nmap gf :NERDTreeFind<CR>
 
@@ -187,12 +194,16 @@ nnoremap <esc> :noh<return><esc>
 let g:go_def_mapping_enabled = 0
 let g:go_highlight_diagnostic_warnings = 0
 let g:go_highlight_diagnostic_errors = 0
+" let g:go_fmt_options = "-tabwidth=4"
+
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+
 
 autocmd Filetype go setlocal shiftwidth=4 softtabstop=4
 
 syntax on
 set smartindent
-set clipboard=unnamed " use os clipboard
+"set clipboard=unnamed " use os clipboard
 set shiftwidth=2 " number of spaces when shift indenting
 set tabstop=2 " number of visual spaces per tab
 set softtabstop=2 " number of spaces in tab when editing
@@ -253,6 +264,12 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Insert mode completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 
 " Eliminating the delay for seamless insert/normal/visual switch
 set timeoutlen=1000 ttimeoutlen=0
@@ -262,16 +279,14 @@ set backspace=indent,eol,start  " more powerful backspacing
 "FZF for Vim
 set rtp+=/usr/local/opt/fzf
 
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" function! InsertTabWrapper()
-"     let col = col('.') - 1
-"     if !col || getline('.')[col - 1] !~ '\k'
-"         return "\<tab>"
-"     else
-"         return "\<c-p>"
-"     endif
-" endfunction
-" inoremap <expr> <tab> InsertTabWrapper()
-" inoremap <s-tab> <c-n>
+"tab completion
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
