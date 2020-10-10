@@ -2,7 +2,7 @@
 displayed_items = "profile"
 style = "bold blue"
 symbol = "🅰 "
-disabled = false
+disabled = true
 [package]
 disabled = true
 

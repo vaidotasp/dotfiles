@@ -32,10 +32,13 @@ Plug 'peitalin/vim-jsx-typescript'
 Plug 'MaxMEllon/vim-jsx-pretty'
 
 "LSP???!!
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
-
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
 call plug#end()
+
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
+
 
 "Further LSP setup
 " let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
@@ -44,19 +47,19 @@ call plug#end()
 " EOF
 
 
-let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
+"let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
 
 let g:highlightedyank_highlight_duration = 150
 
 set background=dark " for the dark version
 "set background=light " for the dark version
-let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_contrast_dark="medium"
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_bold = 0
 " THEMES/COLORS
 colorscheme gruvbox
-"colorscheme lucius
-" let g:lucius_contrast="medium"
+" colorscheme lucius
+" let g:lucius_contrast="high"
 " colorscheme base16-default-dark
 "colorscheme base16-gruvbox-dark-hard
 " colorscheme one
@@ -64,7 +67,7 @@ colorscheme gruvbox
 
 "Airline Theme
 let g:airline_theme='gruvbox'
-"let g:airline_theme='lucius'
+" let g:airline_theme='lucius'
 " let g:airline_theme='base16-default'
 " let g:airline_theme='base16-gruvbox-dark'
 "let g:airline_theme='one'
@@ -155,7 +158,7 @@ nnoremap <silent> <Leader>aw :Ag <C-R><C-W><CR>
 nnoremap <silent> <Leader>prw :CocSearch <C-R><C-W><CR>
 
 "Trying some nerdtree
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "
 nmap ge :NERDTreeToggle<CR>
