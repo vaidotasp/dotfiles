@@ -8,34 +8,54 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'jordwalke/vim-taste'
+Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'rakr/vim-one'
-Plug 'evanleck/vim-svelte'
 Plug 'machakann/vim-highlightedyank'
-Plug 'jonathanfilip/vim-lucius'
+" Plug 'jonathanfilip/vim-lucius'
 Plug 'christoomey/vim-system-copy'
-
 
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+
 "TS Things
-Plug 'leafgarland/typescript-vim'
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
+
 Plug 'peitalin/vim-jsx-typescript'
 
 "JSX VIM
 Plug 'MaxMEllon/vim-jsx-pretty'
 
 "LSP???!!
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
 call plug#end()
 
+let g:vim_jsx_pretty_highlight_close_tag = 1
+
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'tabline': {
+      \   'left': [ ['buffers'] ],
+      \   'right': [ ['close'] ]
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
+      \ }
 " let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 " lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
 
@@ -50,6 +70,7 @@ call plug#end()
 "let g:coc_node_path = '/Users/vpiekus/.config/nvm/14.1.0/bin/node'
 
 let g:highlightedyank_highlight_duration = 150
+set showtabline=2
 
 set background=dark " for the dark version
 "set background=light " for the dark version
@@ -66,7 +87,7 @@ colorscheme gruvbox
 "set background=light " for the light version
 
 "Airline Theme
-let g:airline_theme='gruvbox'
+" let g:airline_theme='gruvbox'
 " let g:airline_theme='lucius'
 " let g:airline_theme='base16-default'
 " let g:airline_theme='base16-gruvbox-dark'
@@ -124,8 +145,8 @@ nmap <leader>gq :diffget //2<CR>
 
 "COC GIT mappings
 " navigate chunks of current buffer
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
+nmap [c <Plug>(coc-git-prevchunk)
+nmap ]c <Plug>(coc-git-nextchunk)
 " show chunk diff at current position
 nmap gs <Plug>(coc-git-chunkinfo)
 nmap gu :CocCommand git.chunkUndo<CR>
@@ -220,7 +241,6 @@ set noshowmode
 set hidden
 set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
-set lazyredraw " don't redraw while executing macros
 set nowrap " no wrap
 set autoindent " automatically set indent of new line
 set ttyfast " faster redrawing
@@ -251,15 +271,16 @@ set laststatus=2 " show the status line all the time
 "let g:airline_powerline_fonts = 1
 "let g:airline_theme='solarized'
 "let g:airline_solarized_bg='dark'
-let g:airline#extensions#branch#enabled = 1 
-let g:airline#extensions#tabline#enabled = 1 
-let g:airline_section_warning = '' 
-let g:airline_section_y = '' 
-let g:airline_section_x = '' 
+" let g:airline#extensions#branch#enabled = 1 
+" let g:airline#extensions#tabline#enabled = 1 
+" let g:airline_section_warning = '' 
+" let g:airline_section_y = '' 
+" let g:airline_section_x = '' 
 "let g:airline_left_sep = ' '
 "let g:airline_right_sep = ' '
 
 "set laststatus=2 " for airline
+"
 
 "Split navigation
 nnoremap <C-J> <C-W><C-J>
