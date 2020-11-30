@@ -1,6 +1,6 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
@@ -10,24 +10,20 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-sleuth'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdtree'
-Plug 'rakr/vim-one'
 Plug 'machakann/vim-highlightedyank'
-" Plug 'jonathanfilip/vim-lucius'
+Plug 'jonathanfilip/vim-lucius'
 Plug 'christoomey/vim-system-copy'
-
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'romainl/vim-cool'
+Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 
 "TS Things
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
-
 Plug 'peitalin/vim-jsx-typescript'
 
 "JSX VIM
@@ -43,19 +39,14 @@ let g:vim_jsx_pretty_highlight_close_tag = 1
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
       \ },
-      \ 'tabline': {
-      \   'left': [ ['buffers'] ],
-      \   'right': [ ['close'] ]
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
       \ },
-      \ 'component_expand': {
-      \   'buffers': 'lightline#bufferline#buffers'
-      \ },
-      \ 'component_type': {
-      \   'buffers': 'tabsel'
       \ }
-      \ }
+
 " let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 " lua require'nvim_lsp'.tsserver.setup{ on_attach=require'completion'.on_attach }
 
@@ -77,21 +68,12 @@ set background=dark " for the dark version
 let g:gruvbox_contrast_dark="medium"
 let g:gruvbox_invert_selection = 0
 let g:gruvbox_bold = 0
+
 " THEMES/COLORS
 colorscheme gruvbox
-" colorscheme lucius
-" let g:lucius_contrast="high"
-" colorscheme base16-default-dark
-"colorscheme base16-gruvbox-dark-hard
-" colorscheme one
-"set background=light " for the light version
+"colorscheme lucius
 
-"Airline Theme
-" let g:airline_theme='gruvbox'
-" let g:airline_theme='lucius'
-" let g:airline_theme='base16-default'
-" let g:airline_theme='base16-gruvbox-dark'
-"let g:airline_theme='one'
+" set background=light " for the light version
 
 let g:tmux_navigator_disable_when_zoomed = 1
 
@@ -106,8 +88,8 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>p :CocCommand prettier.formatFile<CR>
 vmap <leader>,r  <Plug>(coc-format-selected)
 nmap <leader>,r <Plug>(coc-format-selected)
-nmap <silent> [c <Plug>(coc-diagnostic-prev-error)
-nmap <silent> ]c <Plug>(coc-diagnostic-next-error)
+nmap <silent> <leader>e <Plug>(coc-diagnostic-prev-error)
+nmap <silent> <leader>r <Plug>(coc-diagnostic-next-error)
 " nmap <silent> <leader>a <Plug>(coc-diagnostic-next-error)
 " nmap <silent> <leader>a <Plug>(coc-diagnostic-next)
 
@@ -145,14 +127,14 @@ nmap <leader>gq :diffget //2<CR>
 
 "COC GIT mappings
 " navigate chunks of current buffer
-nmap [c <Plug>(coc-git-prevchunk)
-nmap ]c <Plug>(coc-git-nextchunk)
+nmap <leader>c <Plug>(coc-git-prevchunk)
+nmap <leader>v <Plug>(coc-git-nextchunk)
 " show chunk diff at current position
 nmap gs <Plug>(coc-git-chunkinfo)
 nmap gu :CocCommand git.chunkUndo<CR>
 
 "Reboot coc for when it inevitably goes bad
-nmap cr :CocRestart <CR>
+nmap <leader>cc :CocRestart <CR>
 nmap clean :call coc#util#float_hide() <CR>
 nmap <leader>s :w<CR>
 "nmap <leader>q :q<CR>
@@ -164,7 +146,7 @@ nmap <leader>gs :Gstatus<CR>
 nmap 0 ^
 
 "Search Replace stuff
-nnoremap <Leader>r :%s///gc<Left><Left><Left>
+nnoremap <Leader>t :%s///gc<Left><Left><Left>
 
 "Buffer movement etc
 nmap <leader>w :bd<CR>
@@ -210,7 +192,7 @@ let g:javascript_plugin_jsdoc = 1
 set updatetime=300
 
 "Remove search match Highlighting
-nnoremap <esc> :noh<return><esc>
+" nnoremap <esc> :noh<return><esc>
 
 "Indent based on file type
 "GO DEV SETUP
@@ -235,7 +217,7 @@ set shiftround " round indent to a multiple of 'shiftwidth'
 set expandtab " tab to spaces
 set showmatch " highlight matching [{()}]
 set incsearch " search as characters are entered
-set hlsearch " highlight matches
+" set hlsearch " highlight matches
 set noruler
 set noshowmode
 set hidden
@@ -266,22 +248,6 @@ set nofoldenable " don't fold by default
 set foldlevel=1
 set laststatus=2 " show the status line all the time
 
-
-" Airline
-"let g:airline_powerline_fonts = 1
-"let g:airline_theme='solarized'
-"let g:airline_solarized_bg='dark'
-" let g:airline#extensions#branch#enabled = 1 
-" let g:airline#extensions#tabline#enabled = 1 
-" let g:airline_section_warning = '' 
-" let g:airline_section_y = '' 
-" let g:airline_section_x = '' 
-"let g:airline_left_sep = ' '
-"let g:airline_right_sep = ' '
-
-"set laststatus=2 " for airline
-"
-
 "Split navigation
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -293,6 +259,8 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+nmap <C-6> <C-^>
 
 
 " Eliminating the delay for seamless insert/normal/visual switch
