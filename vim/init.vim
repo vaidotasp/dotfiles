@@ -23,8 +23,9 @@ Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 
 "TS Things
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
-Plug 'peitalin/vim-jsx-typescript'
+Plug 'leafgarland/typescript-vim', { 'for': ['typescript','typescriptreact'] }
+Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'peitalin/vim-jsx-typescript'
 
 "JSX VIM
 Plug 'MaxMEllon/vim-jsx-pretty'
@@ -33,6 +34,10 @@ Plug 'MaxMEllon/vim-jsx-pretty'
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
 call plug#end()
+
+" set filetypes as typescriptreact
+"autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
 
@@ -66,7 +71,7 @@ set showtabline=2
 set background=dark " for the dark version
 "set background=light " for the dark version
 let g:gruvbox_contrast_dark="medium"
-let g:gruvbox_invert_selection = 0
+" let g:gruvbox_invert_selection = 0
 let g:gruvbox_bold = 0
 
 " THEMES/COLORS
