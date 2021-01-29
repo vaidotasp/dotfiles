@@ -1,7 +1,8 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
-"Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -22,12 +23,11 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'romainl/vim-cool'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'dense-analysis/ale'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'],
   \ 'do': 'make install'
 \}
-
 
 "TS Things
 Plug 'leafgarland/typescript-vim', { 'for': ['typescript','typescriptreact'] }
@@ -38,56 +38,22 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 
 "LSP???!!
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
-lua require'lspconfig'.tsserver.setup{}
-autocmd BufEnter * lua require'completion'.on_attach()
+" lua require'lspconfig'.tsserver.setup{}
 
-"ALE - TODO: Get rid of this once built in linting is up to snuff?
-let b:ale_linters = ['eslint']
-let g:ale_completion_enabled = 0
-
-"lua << EOF
-"  require'nvim_lsp'.diagnosticls.setup {
-"      filetypes = {"javascript", "typescript"},
-"      init_options = {
-"          linters = {
-"              eslint = {
-"                  command = "./node_modules/.bin/eslint",
-"                  rootPatterns = {".git"},
-"                  debounce = 100,
-"                  args = {
-"                      "--stdin",
-"                      "--stdin-filename",
-"                      "%filepath",
-"                      "--format",
-"                      "json"
-"                  },
-"                  sourceName = "eslint",
-"                  parseJson = {
-"                      errorsRoot = "[0].messages",
-"                      line = "line",
-"                      column = "column",
-"                      endLine = "endLine",
-"                      endColumn = "endColumn",
-"                      message = "${message} [${ruleId}]",
-"                      security = "severity"
-"                  },
-"                  securities = {
-"                      [2] = "error",
-"                      [1] = "warning"
-"                  }
-"              },
-"          filetypes = {
-"              javascript = "eslint",
-"              typescript = "eslint"
-"          }
-"      }
-"  }
-"EOF
-
+" Completion stuff here
+" let g:completion_enable_auto_popup = 1
+" let g:completion_enable_auto_hover = 1
+" let g:completion_matching_smart_case = 1
+" let g:completion_auto_change_source = 1
+" let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
+" autocmd BufEnter * lua require'completion'.on_attach()
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
 
@@ -112,12 +78,23 @@ let g:lightline = {
       \ },
       \ }
 
+"COC Things"
+
+let g:coc_global_extensions=[
+      \'coc-css',
+      \'coc-highlight',
+      \'coc-html',
+      \'coc-marketplace',
+      \'coc-prettier',
+      \'coc-rust-analyzer',
+      \'coc-sh',
+      \'coc-tabnine',
+      \'coc-tsserver',
+      \'coc-jest',
+      \]
 
 " Yank highlight duration
 let g:highlightedyank_highlight_duration = 150
-
-
-
 
 "set background=light " for the dark version
 " let g:gruvbox_contrast_dark="medium"
@@ -139,19 +116,61 @@ let mapleader = "\<Space>"
 nmap <leader>jq :%!jq '.'<CR>
 
 "NVIM - LSP Bindings
-nnoremap <leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap <leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 
-nnoremap <silent> gt <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gt <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> cc <cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>
+" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> <leader>e <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>r <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap gd <Plug>(coc-definition)
+nmap gt <Plug>(coc-type-definition)
+nmap gi <Plug>(coc-implementation)
+nmap gr <Plug>(coc-references)
+
+" Git
+nmap <silent> <leader>v <Plug>(coc-git-nextchunk)
+nmap <silent> <leader>c <Plug>(coc-git-prevchunk)
+nmap <silent> <leader>b <Plug>(coc-git-chunkinfo)
+" nmap <silent> <leader>gb <Plug>(coc-git-chunkUndo)
+nnoremap <leader>gb :call CocAction('runCommand', 'git.chunkUndo')<CR>
+
+" JEST Runner
+" Run jest for current project
+" command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+nnoremap <leader>te :call CocAction('runCommand', 'jest.projectTest')<CR>
+nnoremap <leader>tr :call CocAction('runCommand', 'jest.fileTest')<CR>
+
+
+" Run jest for current file
+command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
 
 "Undo TREE
 nmap <leader>io :UndotreeToggle<cr>
@@ -183,12 +202,12 @@ nnoremap <Leader>t :%s///gc<Left><Left><Left>
 nmap <leader>w :bd<CR>
 
 "FZF and AG
-nnoremap <silent> <leader>ff :Files<cr>
-nnoremap <silent> <leader>F :FZF ~<cr>
+" nnoremap <silent> <leader>F :FZF ~<cr>
+nnoremap <silent> <leader>fa :Files<cr>
 nnoremap <silent> <leader>q :Buffers<cr>
-nnoremap <silent> <leader>fg :GFile<cr>
-nnoremap <silent> <leader>ag :Ag<cr>
-nnoremap <silent> <Leader>aw :Ag <C-R><C-W><CR>
+nnoremap <silent> <leader>ff :GFile<cr>
+nnoremap <silent> <leader>fg :Ag<cr>
+nnoremap <silent> <Leader>fw :Ag <C-R><C-W><CR>
 
 nmap ge :NERDTreeToggle<CR>
 nmap gf :NERDTreeFind<CR>
@@ -243,7 +262,7 @@ set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set nowrap " no wrap
 set autoindent " automatically set indent of new line
-set ttyfast " faster redrawing
+" set ttyfast " faster redrawing
 set cmdheight=1 "display messages
 set wildmenu " enhanced command line completion
 set signcolumn=yes
@@ -256,7 +275,7 @@ set termguicolors
 set cursorline
 set ambiwidth=double
 set inccommand=nosplit
-set nolazyredraw " don't redraw while executing macros
+" set nolazyredraw " don't redraw while executing macros
 
 " code folding settings
 set foldmethod=syntax " fold based on indent
@@ -287,10 +306,6 @@ imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
 nmap <C-6> <C-^>
-
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
 
 function! s:check_back_space() abort
   let col = col('.') - 1
