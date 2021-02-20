@@ -4,6 +4,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-surround'
@@ -16,14 +17,13 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'gruvbox-community/gruvbox'
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'ayu-theme/ayu-vim'
 Plug 'christoomey/vim-system-copy'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'joshdick/onedark.vim'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'ayu-theme/ayu-vim'
 Plug 'romainl/vim-cool'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'],
   \ 'do': 'make install'
@@ -38,6 +38,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'MaxMEllon/vim-jsx-pretty'
 
 "LSP???!!
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
 " Plug 'nvim-lua/popup.nvim'
@@ -103,9 +104,12 @@ let g:highlightedyank_highlight_duration = 150
 
 
 " THEMES/COLORS
-colorscheme gruvbox
-" colorscheme lucius
-"colorscheme ayu
+let ayucolor="mirage" " for mirage version of theme
+
+"colorscheme gruvbox
+colorscheme ayu
+
+set termguicolors
 
 let g:tmux_navigator_disable_when_zoomed = 1
 
@@ -232,10 +236,12 @@ let g:javascript_plugin_jsdoc = 1
 
 "Indent based on file type
 "GO DEV SETUP
+" let g:go_def_mode='gopls'
+" let g:go_info_mode='gopls'
 "Disable stuff we do not need from vim-go as coc-go handles it well enough
-" let g:go_def_mapping_enabled = 0
-" let g:go_highlight_diagnostic_warnings = 0
-" let g:go_highlight_diagnostic_errors = 0
+let g:go_def_mapping_enabled = 0
+let g:go_highlight_diagnostic_warnings = 0
+let g:go_highlight_diagnostic_errors = 0
 " let g:go_fmt_options = "-tabwidth=4"
 
 " TAB/SPACE Config
@@ -243,6 +249,7 @@ au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
 autocmd Filetype go setlocal shiftwidth=4 softtabstop=4
 
 syntax on
+set mouse=a
 set background=dark " for the dark version
 set number
 set tabstop=2 " number of visual spaces per tab

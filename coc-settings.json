@@ -29,5 +29,15 @@
   "html.format.enable": true,
   "tsserver.formatOnType": false,
   "coc.preferences.formatOnType": false,
-  "coc.preferences.formatOnSaveFiletypes": ["go"]
+  "coc.preferences.formatOnSaveFiletypes": ["go"],
+  "languageserver": {
+    "golang": {
+      "command": "/Users/vpiekus/go/bin/gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+}
 }
