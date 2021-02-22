@@ -19,7 +19,7 @@ Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'christoomey/vim-system-copy'
 Plug 'joshdick/onedark.vim'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'ayu-theme/ayu-vim'
 Plug 'romainl/vim-cool'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
@@ -41,20 +41,29 @@ Plug 'MaxMEllon/vim-jsx-pretty'
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-lua/lsp_extensions.nvim'
+
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
-" lua require'lspconfig'.tsserver.setup{}
+"LSPS laid out here
+" lua << EOF
+"   require'lspconfig'.tsserver.setup{}
+"   require'lspconfig'.gopls.setup{}
 
-" Completion stuff here
-" let g:completion_enable_auto_popup = 1
-" let g:completion_enable_auto_hover = 1
-" let g:completion_matching_smart_case = 1
-" let g:completion_auto_change_source = 1
-" let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
-" autocmd BufEnter * lua require'completion'.on_attach()
+"   local capabilities = vim.lsp.protocol.make_client_capabilities()
+"   capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+"   require'lspconfig'.html.setup {
+"   capabilities = capabilities,
+"   }
+"   require'lspconfig'.html.setup{on_attach=require'completion'.on_attach}
+
+"   require'lspconfig'.tsserver.setup{on_attach=require'completion'.on_attach}
+"   require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
+" EOF
 
 let g:vim_jsx_pretty_highlight_close_tag = 1
 
@@ -87,9 +96,7 @@ let g:coc_global_extensions=[
       \'coc-html',
       \'coc-marketplace',
       \'coc-prettier',
-      \'coc-rust-analyzer',
       \'coc-sh',
-      \'coc-tabnine',
       \'coc-tsserver',
       \'coc-jest',
       \]
@@ -119,23 +126,39 @@ let mapleader = "\<Space>"
 "Format JSON
 nmap <leader>jq :%!jq '.'<CR>
 
-"NVIM - LSP Bindings
-" nnoremap <leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" nnoremap <leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+"NVIM - LSP Bindings ---COMPLETION
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+let g:completion_matching_smart_case = 1
+let g:completion_auto_change_source = 1
+let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
 
+" Avoid showing message extra message when using completion
+set shortmess+=c
+imap <tab> <Plug>(completion_smart_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)
+
+"NVIM - LSP Bindings ---BINDINGS
+" set updatetime=300
+" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+" set signcolumn=yes
+" Goto previous/next diagnostic warning/error
+" nnoremap <silent><leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+" nnoremap <silent><leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+" nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
+
+"How does type def differ from buf def?
+" nnoremap <silent> gt   <cmd>lua vim.lsp.buf.type_definition()<CR>
 " nnoremap <silent> gt <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> cc <cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<CR>
-" nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-" nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
-" nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-" nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 " nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-" nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
-" Use K to show documentation in preview window.
+
+"Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -148,7 +171,6 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> <leader>e <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>r <Plug>(coc-diagnostic-next)
@@ -163,18 +185,18 @@ nmap gr <Plug>(coc-references)
 nmap <silent> <leader>v <Plug>(coc-git-nextchunk)
 nmap <silent> <leader>c <Plug>(coc-git-prevchunk)
 nmap <silent> <leader>b <Plug>(coc-git-chunkinfo)
-" nmap <silent> <leader>gb <Plug>(coc-git-chunkUndo)
+nmap <silent> <leader>gb <Plug>(coc-git-chunkUndo)
 nnoremap <leader>gb :call CocAction('runCommand', 'git.chunkUndo')<CR>
 
 " JEST Runner
 " Run jest for current project
-" command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
 nnoremap <leader>te :call CocAction('runCommand', 'jest.projectTest')<CR>
 nnoremap <leader>tr :call CocAction('runCommand', 'jest.fileTest')<CR>
 
 
 " Run jest for current file
-command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
+" command! -nargs=0 JestCurrent :call  CocAction('runCommand', 'jest.fileTest', ['%'])
 
 "Undo TREE
 nmap <leader>io :UndotreeToggle<cr>
