@@ -105,16 +105,17 @@ let g:coc_global_extensions=[
 let g:highlightedyank_highlight_duration = 150
 
 "set background=light " for the dark version
-" let g:gruvbox_contrast_dark="medium"
+ " let g:gruvbox_contrast_dark="medium"
+ let g:gruvbox_contrast_dark="hard"
 " let g:gruvbox_invert_selection = 0
 " let g:gruvbox_bold = 0
 
 
 " THEMES/COLORS
-let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="mirage" " for mirage version of theme
 
-"colorscheme gruvbox
-colorscheme ayu
+colorscheme gruvbox
+"colorscheme ayu
 
 set termguicolors
 
@@ -180,6 +181,8 @@ nmap gd <Plug>(coc-definition)
 nmap gt <Plug>(coc-type-definition)
 nmap gi <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
+nmap <leader>ac  <Plug>(coc-codeaction)
+
 
 " Git
 nmap <silent> <leader>v <Plug>(coc-git-nextchunk)
