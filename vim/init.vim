@@ -15,30 +15,29 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'mbbill/undotree'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'gruvbox-community/gruvbox'
+Plug 'jonathanfilip/vim-lucius'
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'christoomey/vim-system-copy'
-Plug 'joshdick/onedark.vim'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'ayu-theme/ayu-vim'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'romainl/vim-cool'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+"Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'],
   \ 'do': 'make install'
 \}
 
 "TS Things
-Plug 'leafgarland/typescript-vim', { 'for': ['typescript','typescriptreact'] }
-Plug 'HerringtonDarkholme/yats.vim'
+ Plug 'leafgarland/typescript-vim', { 'for': ['typescript','typescriptreact'] }
+ Plug 'HerringtonDarkholme/yats.vim'
 " Plug 'peitalin/vim-jsx-typescript'
 
 "JSX VIM
-Plug 'MaxMEllon/vim-jsx-pretty'
+ Plug 'MaxMEllon/vim-jsx-pretty'
 
 "LSP???!!
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 " Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/completion-nvim'
 " Plug 'nvim-lua/lsp_extensions.nvim'
@@ -46,26 +45,34 @@ Plug 'MaxMEllon/vim-jsx-pretty'
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
+" Plug 'nvim-telescope/telescope-fzy-native.nvim'
 call plug#end()
 
 "LSPS laid out here
 " lua << EOF
-"   require'lspconfig'.tsserver.setup{}
-"   require'lspconfig'.gopls.setup{}
+"    require'lspconfig'.tsserver.setup{}
+"    require'lspconfig'.gopls.setup{}
 
-"   local capabilities = vim.lsp.protocol.make_client_capabilities()
-"   capabilities.textDocument.completion.completionItem.snippetSupport = true
+"    local capabilities = vim.lsp.protocol.make_client_capabilities()
+"    capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-"   require'lspconfig'.html.setup {
-"   capabilities = capabilities,
-"   }
-"   require'lspconfig'.html.setup{on_attach=require'completion'.on_attach}
+"    require'lspconfig'.html.setup {
+"    capabilities = capabilities,
+"    }
+"    require'lspconfig'.html.setup{on_attach=require'completion'.on_attach}
 
-"   require'lspconfig'.tsserver.setup{on_attach=require'completion'.on_attach}
-"   require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
+"    require'lspconfig'.tsserver.setup{on_attach=require'completion'.on_attach}
+"    require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
+"    require'nvim-treesitter.configs'.setup {
+"       ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+"       highlight = {
+"         enable = false,              -- false will disable the whole extension
+"         disable = { "tsx", "typescript" },  -- list of language that will be disabled
+"       },
+"     }
 " EOF
 
-let g:vim_jsx_pretty_highlight_close_tag = 1
+" let g:vim_jsx_pretty_highlight_close_tag = 1
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -89,7 +96,6 @@ let g:lightline = {
       \ }
 
 "COC Things"
-
 let g:coc_global_extensions=[
       \'coc-css',
       \'coc-highlight',
@@ -128,8 +134,8 @@ let mapleader = "\<Space>"
 nmap <leader>jq :%!jq '.'<CR>
 
 "NVIM - LSP Bindings ---COMPLETION
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect
 let g:completion_matching_smart_case = 1
@@ -137,18 +143,18 @@ let g:completion_auto_change_source = 1
 let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
 
 " Avoid showing message extra message when using completion
-set shortmess+=c
-imap <tab> <Plug>(completion_smart_tab)
-imap <s-tab> <Plug>(completion_smart_s_tab)
+" set shortmess+=c
+" imap <tab> <Plug>(completion_smart_tab)
+" imap <s-tab> <Plug>(completion_smart_s_tab)
 
 "NVIM - LSP Bindings ---BINDINGS
-" set updatetime=300
-" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
-" set signcolumn=yes
+ " set updatetime=300
+ " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+ " set signcolumn=yes
 " Goto previous/next diagnostic warning/error
-" nnoremap <silent><leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-" nnoremap <silent><leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-" nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
+ " nnoremap <silent><leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+ " nnoremap <silent><leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+ " nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
 
 "How does type def differ from buf def?
 " nnoremap <silent> gt   <cmd>lua vim.lsp.buf.type_definition()<CR>
@@ -175,6 +181,9 @@ endfunction
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> <leader>e <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>r <Plug>(coc-diagnostic-next)
+
+vmap <leader>p  <Plug>(coc-format-selected)
+nmap <leader>p  <Plug>(coc-format-selected)
 
 " GoTo code navigation.
 nmap gd <Plug>(coc-definition)
@@ -230,8 +239,16 @@ nnoremap <Leader>t :%s///gc<Left><Left><Left>
 "Buffer movement etc
 nmap <leader>w :bd<CR>
 
+"Telescope
+" Find files using Telescope command-line sugar.
+" nnoremap <leader>ff <cmd>Telescope find_files<cr>
+" nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+" nnoremap <leader>q <cmd>Telescope buffers<cr>
+" nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
 "FZF and AG
-" nnoremap <silent> <leader>F :FZF ~<cr>
+nnoremap <silent> <leader>F :FZF ~<cr>
 nnoremap <silent> <leader>fa :Files<cr>
 nnoremap <silent> <leader>q :Buffers<cr>
 nnoremap <silent> <leader>ff :GFile<cr>
@@ -240,6 +257,9 @@ nnoremap <silent> <Leader>fw :Ag <C-R><C-W><CR>
 
 nmap ge :NERDTreeToggle<CR>
 nmap gf :NERDTreeFind<CR>
+
+let NERDTreeShowHidden=1
+
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -257,7 +277,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 "Syntax highlight for jsdoc
-let g:javascript_plugin_jsdoc = 1
+ let g:javascript_plugin_jsdoc = 1
 
 "Indent based on file type
 "GO DEV SETUP
@@ -294,7 +314,7 @@ set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set nowrap " no wrap
 set autoindent " automatically set indent of new line
-" set ttyfast " faster redrawing
+set ttyfast " faster redrawing
 set cmdheight=1 "display messages
 set wildmenu " enhanced command line completion
 set signcolumn=yes
@@ -303,11 +323,10 @@ set scrolloff=8
 
 set undodir=~/.vim/undodir
 set undofile
-set termguicolors
+
 set cursorline
-set ambiwidth=double
 set inccommand=nosplit
-" set nolazyredraw " don't redraw while executing macros
+set nolazyredraw " don't redraw while executing macros
 
 " code folding settings
 set foldmethod=syntax " fold based on indent
@@ -339,7 +358,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 nmap <C-6> <C-^>
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
