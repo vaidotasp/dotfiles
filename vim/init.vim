@@ -1,6 +1,6 @@
 "Initialize Vim-Plug~/.vim/plugged
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -27,6 +27,8 @@ Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'],
   \ 'do': 'make install'
 \}
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+
 
 "TS Things
  Plug 'leafgarland/typescript-vim', { 'for': ['typescript','typescriptreact'] }
@@ -37,9 +39,9 @@ Plug 'heavenshell/vim-jsdoc', {
  Plug 'MaxMEllon/vim-jsx-pretty'
 
 "LSP???!!
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-" Plug 'neovim/nvim-lspconfig'
-" Plug 'nvim-lua/completion-nvim'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'hrsh7th/nvim-compe'
+Plug 'neovim/nvim-lspconfig'
 " Plug 'nvim-lua/lsp_extensions.nvim'
 
 " Plug 'nvim-lua/popup.nvim'
@@ -48,31 +50,76 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend upda
 " Plug 'nvim-telescope/telescope-fzy-native.nvim'
 call plug#end()
 
+set completeopt=menuone,noselect
 "LSPS laid out here
-" lua << EOF
-"    require'lspconfig'.tsserver.setup{}
-"    require'lspconfig'.gopls.setup{}
+lua << EOF
+--[[
 
-"    local capabilities = vim.lsp.protocol.make_client_capabilities()
-"    capabilities.textDocument.completion.completionItem.snippetSupport = true
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-"    require'lspconfig'.html.setup {
-"    capabilities = capabilities,
-"    }
-"    require'lspconfig'.html.setup{on_attach=require'completion'.on_attach}
+    require'lspconfig'.html.setup {
+    capabilities = capabilities,
+    }
+    require'lspconfig'.html.setup{on_attach=require'completion'.on_attach}
 
-"    require'lspconfig'.tsserver.setup{on_attach=require'completion'.on_attach}
-"    require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
-"    require'nvim-treesitter.configs'.setup {
-"       ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-"       highlight = {
-"         enable = false,              -- false will disable the whole extension
-"         disable = { "tsx", "typescript" },  -- list of language that will be disabled
-"       },
-"     }
-" EOF
+    require'lspconfig'.tsserver.setup{on_attach=require'completion'.on_attach}
+    require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
+    require'nvim-treesitter.configs'.setup {
+       ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+       highlight = {
+         enable = false,              -- false will disable the whole extension
+         disable = { "tsx", "typescript" },  -- list of language that will be disabled
+       },
+     }
+--]]
+
+
+local lspconfig = require'lspconfig'
+lspconfig.gopls.setup{
+  root_dir = lspconfig.util.root_pattern('.git');
+}
+
+require'lspconfig'.tsserver.setup{}
+require'lspconfig'.gopls.setup{}
+
+require'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+  };
+}
+EOF
 
 " let g:vim_jsx_pretty_highlight_close_tag = 1
+
+autocmd FileType markdown let b:coc_suggest_disable = 1
+
+highlight link CompeDocumentation NormalFloat
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
 
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -96,16 +143,16 @@ let g:lightline = {
       \ }
 
 "COC Things"
-let g:coc_global_extensions=[
-      \'coc-css',
-      \'coc-highlight',
-      \'coc-html',
-      \'coc-marketplace',
-      \'coc-prettier',
-      \'coc-sh',
-      \'coc-tsserver',
-      \'coc-jest',
-      \]
+" let g:coc_global_extensions=[
+"       \'coc-css',
+"       \'coc-highlight',
+"       \'coc-html',
+"       \'coc-marketplace',
+"       \'coc-prettier',
+"       \'coc-sh',
+"       \'coc-tsserver',
+"       \'coc-jest',
+"       \]
 
 " Yank highlight duration
 let g:highlightedyank_highlight_duration = 150
@@ -137,7 +184,7 @@ nmap <leader>jq :%!jq '.'<CR>
 " inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 " inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+
 let g:completion_matching_smart_case = 1
 let g:completion_auto_change_source = 1
 let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
@@ -152,59 +199,59 @@ let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
  " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
  " set signcolumn=yes
 " Goto previous/next diagnostic warning/error
- " nnoremap <silent><leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
- " nnoremap <silent><leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
- " nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent><leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent><leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
 
 "How does type def differ from buf def?
 " nnoremap <silent> gt   <cmd>lua vim.lsp.buf.type_definition()<CR>
-" nnoremap <silent> gt <cmd>lua vim.lsp.buf.definition()<CR>
-" nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-" nnoremap <silent> gd    <cmd>lua vim.lsp.buf.implementation()<CR>
-" nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
-" nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> gt <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 
 "Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   elseif (coc#rpc#ready())
+"     call CocActionAsync('doHover')
+"   else
+"     execute '!' . &keywordprg . " " . expand('<cword>')
+"   endif
+" endfunction
 
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> <leader>e <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>r <Plug>(coc-diagnostic-next)
+" nmap <silent> <leader>e <Plug>(coc-diagnostic-prev)
+" nmap <silent> <leader>r <Plug>(coc-diagnostic-next)
 
-vmap <leader>p  <Plug>(coc-format-selected)
-nmap <leader>p  <Plug>(coc-format-selected)
+" vmap <leader>p  <Plug>(coc-format-selected)
+" nmap <leader>p  <Plug>(coc-format-selected)
 
 " GoTo code navigation.
-nmap gd <Plug>(coc-definition)
-nmap gt <Plug>(coc-type-definition)
-nmap gi <Plug>(coc-implementation)
-nmap gr <Plug>(coc-references)
-nmap <leader>ac  <Plug>(coc-codeaction)
+" nmap gd <Plug>(coc-definition)
+" nmap gt <Plug>(coc-type-definition)
+" nmap gi <Plug>(coc-implementation)
+" nmap gr <Plug>(coc-references)
+" nmap <leader>ac  <Plug>(coc-codeaction)
 
 
 " Git
-nmap <silent> <leader>v <Plug>(coc-git-nextchunk)
-nmap <silent> <leader>c <Plug>(coc-git-prevchunk)
-nmap <silent> <leader>b <Plug>(coc-git-chunkinfo)
-nmap <silent> <leader>gb <Plug>(coc-git-chunkUndo)
+" nmap <silent> <leader>v <Plug>(coc-git-nextchunk)
+" nmap <silent> <leader>c <Plug>(coc-git-prevchunk)
+" nmap <silent> <leader>b <Plug>(coc-git-chunkinfo)
+" nmap <silent> <leader>gb <Plug>(coc-git-chunkUndo)
 nnoremap <leader>gb :call CocAction('runCommand', 'git.chunkUndo')<CR>
 
 " JEST Runner
 " Run jest for current project
-command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
-nnoremap <leader>te :call CocAction('runCommand', 'jest.projectTest')<CR>
-nnoremap <leader>tr :call CocAction('runCommand', 'jest.fileTest')<CR>
+" command! -nargs=0 Jest :call  CocAction('runCommand', 'jest.projectTest')
+" nnoremap <leader>te :call CocAction('runCommand', 'jest.projectTest')<CR>
+" nnoremap <leader>tr :call CocAction('runCommand', 'jest.fileTest')<CR>
 
 
 " Run jest for current file
@@ -339,7 +386,6 @@ set laststatus=2 " show the status line all the time
 set timeoutlen=1000 ttimeoutlen=0
 
 set backspace=indent,eol,start  " more powerful backspacing
-set completeopt=menuone,noinsert,noselect
 
 "FZF for Vim
 set rtp+=/usr/local/opt/fzf
