@@ -190,6 +190,7 @@ nmap gd <Plug>(coc-definition)
 nmap gt <Plug>(coc-type-definition)
 nmap gi <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
+nmap ar <Plug>(coc-rename)
 nmap <leader>ac  <Plug>(coc-codeaction)
 
 
