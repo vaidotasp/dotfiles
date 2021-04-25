@@ -28,6 +28,7 @@ Plug 'heavenshell/vim-jsdoc', {
   \ 'do': 'make install'
 \}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+Plug 'phaazon/hop.nvim'
 
 
 "TS Things
@@ -42,6 +43,7 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'hrsh7th/nvim-compe'
 Plug 'neovim/nvim-lspconfig'
+" Plug 'kabouzeid/nvim-lspinstall'
 " Plug 'nvim-lua/lsp_extensions.nvim'
 
 " Plug 'nvim-lua/popup.nvim'
@@ -54,6 +56,22 @@ set completeopt=menuone,noselect
 "LSPS laid out here
 lua << EOF
 --[[
+
+    local function setup_servers()
+      require'lspinstall'.setup()
+      local servers = require'lspinstall'.installed_servers()
+      for _, server in pairs(servers) do
+        require'lspconfig'[server].setup{}
+      end
+    end
+
+    setup_servers()
+
+    -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+    require'lspinstall'.post_install_hook = function ()
+      setup_servers() -- reload installed servers
+      vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+    end
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -82,6 +100,10 @@ lspconfig.gopls.setup{
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.gopls.setup{}
+require'lspconfig'.html.setup{}
+require'lspconfig'.cssls.setup{}
+
+
 
 require'compe'.setup {
   enabled = true;
@@ -208,7 +230,7 @@ nnoremap <silent>K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> gt <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent><leader> cr     <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 
