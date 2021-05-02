@@ -19,36 +19,38 @@ Plug 'jonathanfilip/vim-lucius'
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'christoomey/vim-system-copy'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'romainl/vim-cool'
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
-"Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'],
   \ 'do': 'make install'
 \}
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'phaazon/hop.nvim'
 
+Plug 'simrat39/symbols-outline.nvim'
 
 "TS Things
  Plug 'leafgarland/typescript-vim', { 'for': ['typescript','typescriptreact'] }
  Plug 'HerringtonDarkholme/yats.vim'
+
+Plug 'dyng/ctrlsf.vim'
+
 " Plug 'peitalin/vim-jsx-typescript'
 
 "JSX VIM
  Plug 'MaxMEllon/vim-jsx-pretty'
 
 "LSP???!!
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'hrsh7th/nvim-compe'
 Plug 'neovim/nvim-lspconfig'
+Plug 'glepnir/lspsaga.nvim'
 " Plug 'kabouzeid/nvim-lspinstall'
-" Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
 
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 " Plug 'nvim-telescope/telescope-fzy-native.nvim'
 call plug#end()
 
@@ -80,7 +82,7 @@ lua << EOF
     capabilities = capabilities,
     }
     require'lspconfig'.html.setup{on_attach=require'completion'.on_attach}
-
+    require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
     require'lspconfig'.tsserver.setup{on_attach=require'completion'.on_attach}
     require'lspconfig'.gopls.setup{on_attach=require'completion'.on_attach}
     require'nvim-treesitter.configs'.setup {
@@ -102,7 +104,7 @@ require'lspconfig'.tsserver.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.html.setup{}
 require'lspconfig'.cssls.setup{}
-
+require'lspconfig'.rust_analyzer.setup{}
 
 
 require'compe'.setup {
@@ -128,6 +130,38 @@ require'compe'.setup {
     vsnip = true;
   };
 }
+
+local opts = {
+    -- whether to highlight the currently hovered symbol
+    -- disable if your cpu usage is higher than you want it
+    -- or you just hate the highlight
+    -- default: true
+    highlight_hovered_item = true,
+
+    -- whether to show outline guides 
+    -- default: true
+    show_guides = true,
+}
+
+require('symbols-outline').setup(opts)
+
+-- local saga = require 'lspsaga'
+
+-- saga.init_lsp_saga()
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "javascript" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "c" },  -- list of language that will be disabled
+  },
+}
+
+require('telescope').setup{
+  -- ...
+}
+
 EOF
 
 " let g:vim_jsx_pretty_highlight_close_tag = 1
@@ -179,17 +213,18 @@ let g:lightline = {
 " Yank highlight duration
 let g:highlightedyank_highlight_duration = 150
 
-"set background=light " for the dark version
- " let g:gruvbox_contrast_dark="medium"
- let g:gruvbox_contrast_dark="hard"
-" let g:gruvbox_invert_selection = 0
-" let g:gruvbox_bold = 0
+let g:gruvbox_contrast_dark="hard"
+let g:gruvbox_bold = 0
+let g:gruvbox_italic = 0
 
 
 " THEMES/COLORS
 "let ayucolor="mirage" " for mirage version of theme
 
 colorscheme gruvbox
+
+
+"colorscheme lucius
 "colorscheme ayu
 
 set termguicolors
@@ -199,6 +234,8 @@ let g:tmux_navigator_disable_when_zoomed = 1
 "Leader Change
 let mapleader = "\<Space>"
 
+"Source vimrc on the fly
+nnoremap so :so $MYVIMRC<CR>
 "Format JSON
 nmap <leader>jq :%!jq '.'<CR>
 
@@ -232,6 +269,7 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader> cr     <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+" nnoremap <silent><leader>ca :Lspsaga code_action<CR>
 
 
 "Use K to show documentation in preview window.
@@ -301,6 +339,9 @@ nmap <leader>gs :Gstatus<CR>
 
 "Better movement to the front of the line
 nmap 0 ^
+
+"Console it all baby
+imap cll console.log()<Esc><S-f>(a
 
 "Search Replace stuff
 nnoremap <Leader>t :%s///gc<Left><Left><Left>
