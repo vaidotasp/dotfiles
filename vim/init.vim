@@ -164,6 +164,8 @@ let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
 " nnoremap <silent> re     <cmd>lua vim.lsp.buf.rename()<CR>
 " nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
+"Console all the things
+imap cll console.log()<Esc><S-f>(a
 
 "Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -182,17 +184,18 @@ endfunction
 nmap <silent> <leader>e <Plug>(coc-diagnostic-prev)
 nmap <silent> <leader>r <Plug>(coc-diagnostic-next)
 
-vmap <leader>p  <Plug>(coc-format-selected)
-nmap <leader>p  <Plug>(coc-format-selected)
+vmap <leader>ps  <Plug>(coc-format-selected)
+nnoremap <leader>p :CocCommand prettier.formatFile<CR>
 
 " GoTo code navigation.
 nmap gd <Plug>(coc-definition)
 nmap gt <Plug>(coc-type-definition)
 nmap gi <Plug>(coc-implementation)
 nmap gr <Plug>(coc-references)
-nmap ar <Plug>(coc-rename)
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <leader>ar <Plug>(coc-rename)
+nmap <leader>ga  <Plug>(coc-codeaction)
 
+nnoremap so :so $MYVIMRC<CR>
 
 " Git
 nmap <silent> <leader>v <Plug>(coc-git-nextchunk)
