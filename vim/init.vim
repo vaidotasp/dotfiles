@@ -105,6 +105,8 @@ let g:coc_global_extensions=[
       \'coc-sh',
       \'coc-tsserver',
       \'coc-jest',
+      \'coc-go',
+      \'coc-tailwindcss',
       \]
 
 " Yank highlight duration
