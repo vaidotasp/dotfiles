@@ -303,6 +303,7 @@ syntax on
 set mouse=a
 set background=dark " for the dark version
 set number
+set relativenumber
 set tabstop=2 " number of visual spaces per tab
 set softtabstop=2 " number of spaces in tab when editing
 set shiftwidth=2 " number of spaces when shift indenting
