@@ -44,13 +44,15 @@ Plug 'phaazon/hop.nvim'
 Plug 'hrsh7th/nvim-compe'
 Plug 'neovim/nvim-lspconfig'
 " Plug 'kabouzeid/nvim-lspinstall'
-" Plug 'nvim-lua/lsp_extensions.nvim'
+Plug 'nvim-lua/lsp_extensions.nvim'
 
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
 " Plug 'nvim-telescope/telescope-fzy-native.nvim'
 call plug#end()
+
+" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 
 set completeopt=menuone,noselect
 "LSPS laid out here
@@ -102,8 +104,7 @@ require'lspconfig'.tsserver.setup{}
 require'lspconfig'.gopls.setup{}
 require'lspconfig'.html.setup{}
 require'lspconfig'.cssls.setup{}
-
-
+require'lspconfig'.rust_analyzer.setup{}
 
 require'compe'.setup {
   enabled = true;
@@ -128,9 +129,16 @@ require'compe'.setup {
     vsnip = true;
   };
 }
-EOF
 
-" let g:vim_jsx_pretty_highlight_close_tag = 1
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
+
+EOF
 
 autocmd FileType markdown let b:coc_suggest_disable = 1
 
@@ -233,6 +241,9 @@ nnoremap <silent> gd    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader> cr     <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
+
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 "Use K to show documentation in preview window.
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
