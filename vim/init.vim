@@ -54,6 +54,8 @@ Plug 'nvim-telescope/telescope.nvim'
 " Plug 'nvim-telescope/telescope-fzy-native.nvim'
 call plug#end()
 
+" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+
 set completeopt=menuone,noselect
 "LSPS laid out here
 lua << EOF
@@ -131,40 +133,15 @@ require'compe'.setup {
   };
 }
 
-local opts = {
-    -- whether to highlight the currently hovered symbol
-    -- disable if your cpu usage is higher than you want it
-    -- or you just hate the highlight
-    -- default: true
-    highlight_hovered_item = true,
-
-    -- whether to show outline guides 
-    -- default: true
-    show_guides = true,
-}
-
-require('symbols-outline').setup(opts)
-
--- local saga = require 'lspsaga'
-
--- saga.init_lsp_saga()
-
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript", "graphql", "typescript" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = { "" }, -- List of parsers to ignore installing
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = { "c" },  -- list of language that will be disabled
-  },
-}
-
-require('telescope').setup{
-  -- ...
-}
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
 
 EOF
-
-" let g:vim_jsx_pretty_highlight_close_tag = 1
 
 autocmd FileType markdown let b:coc_suggest_disable = 1
 
@@ -269,6 +246,9 @@ nnoremap <silent><leader> cr     <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 " nnoremap <silent><leader>ca :Lspsaga code_action<CR>
 
+
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment", enabled = {"TypeHint", "ChainingHint", "ParameterHint"} }
 
 "Use K to show documentation in preview window.
 " nnoremap <silent> K :call <SID>show_documentation()<CR>
