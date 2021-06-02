@@ -150,7 +150,7 @@ require('symbols-outline').setup(opts)
 -- saga.init_lsp_saga()
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "javascript", "graphql", "typescript" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   ignore_install = { "" }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
@@ -222,8 +222,6 @@ let g:gruvbox_italic = 0
 "let ayucolor="mirage" " for mirage version of theme
 
 colorscheme gruvbox
-
-
 "colorscheme lucius
 "colorscheme ayu
 
@@ -407,6 +405,7 @@ syntax on
 set mouse=a
 set background=dark " for the dark version
 set number
+set rnu "relatives
 set tabstop=2 " number of visual spaces per tab
 set softtabstop=2 " number of spaces in tab when editing
 set shiftwidth=2 " number of spaces when shift indenting
