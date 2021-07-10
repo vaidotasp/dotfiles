@@ -42,7 +42,17 @@ Plug 'glepnir/lspsaga.nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+
+"Top bar
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'romgrk/barbar.nvim'
 call plug#end()
+
+"BAR
+let bufferline = get(g:, 'bufferline', {})
+let bufferline.animation = v:false
+let bufferline.closable = v:false
+
 
 set completeopt=menuone,noselect
 
