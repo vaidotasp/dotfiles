@@ -3,6 +3,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'dense-analysis/ale'
 Plug 'junegunn/gv.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -16,6 +17,8 @@ Plug 'jonathanfilip/vim-lucius'
 Plug 'preservim/nerdtree'
 Plug 'machakann/vim-highlightedyank'
 Plug 'christoomey/vim-system-copy'
+Plug 'jparise/vim-graphql'
+Plug 'arcticicestudio/nord-vim'
 Plug 'romainl/vim-cool'
 Plug 'heavenshell/vim-jsdoc', {
   \ 'for': ['javascript', 'javascript.jsx','typescript'],
@@ -49,6 +52,9 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 "Top bar
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
+
+Plug 'stsewd/gx-extended.vim'
+
 call plug#end()
 
 "BAR
@@ -424,6 +430,8 @@ let g:gruvbox_bold = 0
 let g:gruvbox_italic = 0
 
 colorscheme gruvbox
+"colorscheme nord
+"colorscheme lucius
 
 set termguicolors
 
@@ -441,6 +449,17 @@ let g:completion_matching_smart_case = 1
 let g:completion_auto_change_source = 1
 let g:completion_matching_strategy_list = ['fuzzy', 'substring', 'exact', 'all']
 
+" ALE stuff that is prob temp?
+let b:ale_linters = {'javascript': ['eslint'], 'javascriptreact': ['eslint'], 'typescriptreact': ['eslint']}
+
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_completion_enabled = 0
+let g:ale_completion_autoimport = 0
+let g:ale_linters_explicit = 1
+let g:ale_disable_lsp = 1
+
+"
 " Goto previous/next diagnostic warning/error
 nnoremap <silent><leader>e <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent><leader>r <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
@@ -453,8 +472,6 @@ nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap <silent><leader> cr     <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
-
-nnoremap <leader>gb :call CocAction('runCommand', 'git.chunkUndo')<CR>
 
 "Undo TREE
 nmap <leader>io :UndotreeToggle<cr>
